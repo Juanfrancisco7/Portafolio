@@ -1,0 +1,181 @@
+/* --- VARIABLES DE ESTILO --- */
+:host {
+  --header-height: 80px;
+  --header-background: #2c3e50;
+  --text-color: #ffffff;
+  --accent-color: #8dc855;
+}
+
+/* --- CONTENEDOR PRINCIPAL DEL HEADER --- */
+.head {
+  background-color: var(--header-background);
+  width: 100%;
+  height: var(--header-height);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: transform 0.4s ease-in-out;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.head.header-hidden {
+  transform: translateY(-100%);
+}
+
+.head__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+/* --- ESTILOS BASE (MOBILE-FIRST) --- */
+.logo-link {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.social-icon {
+  color: var(--text-color);
+  font-size: 1.3rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+  color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.head__nav--desktop {
+  display: none; /* Oculto en móvil */
+}
+
+.toggle-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.head__nav--mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--header-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100%);
+  transition: all 0.4s ease-in-out;
+}
+
+.head__nav--mobile.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.head__nav--mobile ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.head__nav--mobile li {
+  margin: 1.5rem 0;
+}
+
+.head__nav--mobile .head__list {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.head__nav--mobile .head__list:hover {
+  color: var(--accent-color);
+}
+
+/* =======================================================
+   === ESTILOS PARA PANTALLAS GRANDES (DESKTOP) ===
+   ======================================================= */
+@media (min-width: 992px) {
+  .head__container {
+    padding: 0 2rem;
+  }
+  
+  /* Hacemos que cada sección ocupe su lugar */
+  .logo-link {
+    flex: 1; /* Ocupa una parte del espacio */
+    justify-content: flex-start;
+    font-size: 1.5rem;
+  }
+  
+  .head__nav--desktop {
+    display: flex;
+    flex: 2; /* Ocupa el doble de espacio, centrando el contenido */
+    justify-content: center;
+  }
+  
+  .header__right {
+    flex: 1; /* Ocupa una parte del espacio */
+    justify-content: flex-end;
+    gap: 1.5rem;
+  }
+
+  .social-icon {
+    font-size: 1.5rem;
+  }
+  
+  .head__nav--desktop ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+  }
+  
+  .head__nav--desktop .head__list {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .head__nav--desktop .head__list:hover {
+    color: var(--accent-color);
+  }
+  
+  .toggle-button {
+    display: none; /* Ocultamos el botón hamburguesa */
+  }
+}
+

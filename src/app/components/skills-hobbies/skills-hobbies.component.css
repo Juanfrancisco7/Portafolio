@@ -1,0 +1,137 @@
+/* Skills y Hobbies Fondo */
+.skills-hobbies {
+    background-color: #f4f4f4;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Encabezados con Animación */
+.skills__title, .hobbies__title {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    color: #464646;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skills__title::after, .hobbies__title::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #4ade80;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.5s ease-in-out;
+}
+
+.skills__title:hover::after, .hobbies__title:hover::after {
+    width: 100%;
+}
+
+/* Lista de Skills (3 por fila) */
+.skills__nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas por fila */
+    column-gap: 2rem; /* espacio horizontal entre skills */
+    row-gap: 4rem;    /* espacio vertical entre filas */
+    justify-items: center;
+    align-items: center;
+}
+
+.skills__list {
+    text-align: center;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.skills__list:hover {
+    transform: translateY(-10px);
+}
+
+.skills__list i {
+    font-size: 3.5rem;
+    color: #8dc855;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.skills__list:hover i {
+    color: #f97316;
+    transform: scale(1.2);
+}
+
+.skills__list p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #464646;
+}
+
+/* Lista de Hobbies (3 por fila) */
+.hobbies__nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem; /* separación horizontal */
+    row-gap: 4rem;     /* separación vertical mejorada entre filas */
+    justify-items: center;
+    align-items: center;
+}
+
+.hobbies__list {
+    text-align: center;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.hobbies__list:hover {
+    transform: translateY(-10px);
+}
+
+.hobbies__list i {
+    font-size: 3.5rem;
+    color: #8dc855;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hobbies__list:hover i {
+    color: #f97316;
+    transform: scale(1.2);
+}
+
+.hobbies__list p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #464646;
+}
+
+/* RESPONSIVE para pantallas pequeñas */
+@media (max-width: 1024px) {
+    .skills__nav,
+    .hobbies__nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .skills__nav,
+    .hobbies__nav {
+        grid-template-columns: 1fr;
+    }
+
+    .skills__list i,
+    .hobbies__list i {
+        font-size: 3rem;
+    }
+
+    .skills__list p,
+    .hobbies__list p {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,184 @@
+/* --- VARIABLES DE COLOR PARA EL TEMA CLARO Y PROFESIONAL --- */
+:host {
+  --background-color: #f4f7f6; /* Un gris muy claro y limpio */
+  --primary-color: #0056b3;    /* Un azul corporativo y serio */
+  --accent-color: #007bff;     /* Un azul más brillante para interacciones */
+  --text-color: #333;          /* Color de texto principal para legibilidad */
+  --text-light-color: #6c757d; /* Color para etiquetas y texto secundario */
+  --card-background: #ffffff;
+  --border-color: #dee2e6;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+}
+
+/* --- FONDO SUTIL Y ELEGANTE --- */
+.contactame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  background-color: var(--background-color);
+  /* Sutil patrón de puntos para dar textura */
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-size: 15px 15px;
+  overflow: hidden;
+}
+
+/* --- TARJETA DEL FORMULARIO LIMPIA Y CON SOMBRA --- */
+.contactame__container {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 700px;
+  padding: 3.5rem;
+  animation: floatIn 0.8s ease-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contactame__container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- TÍTULO CLARO Y FUERTE --- */
+.contactame__contenido__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 2.5rem;
+}
+
+/* --- CAMPOS DEL FORMULARIO ELEGANTES --- */
+.input-container,
+.textarea-container {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.input-label,
+.textarea-label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: var(--text-light-color);
+  transition: all 0.2s ease;
+  pointer-events: none;
+  background-color: var(--card-background);
+  padding: 0 5px;
+}
+
+.input:focus + .input-label,
+.input:not(:placeholder-shown) + .input-label,
+.textarea:focus + .textarea-label,
+.textarea:not(:placeholder-shown) + .textarea-label {
+  top: -0.7rem;
+  left: 0.8rem;
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
+
+/* --- CHECKBOX --- */
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-light-color);
+}
+
+/* --- BOTÓN DE ENVIAR PROFESIONAL --- */
+.btn__enviar {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+.btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* --- NOTIFICACIONES LIMPIAS --- */
+.notification-bar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  font-size: 1rem;
+  font-weight: 500;
+  z-index: 9999;
+  text-align: center;
+  animation: slideIn 0.4s ease forwards;
+}
+
+.notification-bar.success {
+  background-color: var(--success-color);
+}
+
+.notification-bar.error {
+  background-color: var(--error-color);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translate(-50%, -20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (max-width: 768px) {
+  .contactame__container {
+    padding: 2.5rem 1.5rem;
+    margin: 1rem;
+  }
+  .contactame__contenido__title {
+    font-size: 2rem;
+  }
+}

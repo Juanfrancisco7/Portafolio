@@ -1,0 +1,60 @@
+/* Estilos para la Notificación de Bienvenida (Diseño Final) */
+.welcome-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 20px; /* <--- Posicionado a la izquierda */
+  background-color: #e8a13a; /* Color naranja de la imagen */
+  color: #ffffff; /* Color de texto principal blanco */
+  padding: 1rem 1.5rem;
+  border-radius: 12px; /* Bordes más redondeados */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  max-width: 500px; /* Ancho máximo en pantallas grandes */
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.welcome-notification p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.welcome-notification a {
+  color: #4b0082; /* Color morado para los enlaces */
+  text-decoration: none; /* Quitamos el subrayado por defecto */
+  font-weight: bold;
+  transition: opacity 0.3s ease;
+}
+
+.welcome-notification a:hover {
+  opacity: 0.8; /* Efecto sutil al pasar el ratón */
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- AJUSTES RESPONSIVE PARA MÓVILES --- */
+@media (max-width: 600px) {
+  .welcome-notification {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    max-width: none; /* Permitimos que ocupe casi todo el ancho */
+    width: auto; /* El ancho se ajustará al contenido y los márgenes */
+    text-align: center;
+  }
+
+  .welcome-notification p {
+    font-size: 0.9rem;
+  }
+}
+

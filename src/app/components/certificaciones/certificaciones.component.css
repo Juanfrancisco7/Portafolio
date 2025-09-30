@@ -1,0 +1,68 @@
+/* Título de la Sección */
+.experiencia__title {
+  font-size: 2.5rem;
+  text-align: center;
+  padding-bottom: 7rem;
+  font-weight: bold;
+  color: #464646;
+}
+
+/* Contenedor principal de las imágenes */
+.experiencia__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding-bottom: 7rem;
+}
+
+/* Fila individual de imágenes */
+.experiencia__row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Permite que las imágenes pasen a la siguiente línea si no caben */
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Estilo de cada imagen de certificación */
+.experiencia__container__img {
+  width: calc(33.333% - 2rem); /* 3 imágenes por fila con espacio */
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 12px 18px 34px 1px rgba(70, 70, 70, 0.4);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+/* Efecto de hover para agrandar la imagen */
+.experiencia__container__img:hover {
+  transform: scale(1.5);
+  z-index: 10;
+}
+
+/* Responsive para tablets */
+@media (max-width: 1024px) {
+  .experiencia__container__img {
+    width: calc(50% - 2rem); /* 2 imágenes por fila */
+  }
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .experiencia__title {
+    padding-bottom: 4rem;
+  }
+  .experiencia__row {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+  .experiencia__container__img {
+    width: 80%; /* 1 imagen por fila */
+  }
+  .experiencia__container__img:hover {
+    transform: scale(1.1); /* Hacemos el efecto de hover más sutil en móviles */
+  }
+}

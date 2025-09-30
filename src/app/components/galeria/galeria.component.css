@@ -1,0 +1,174 @@
+/* Estilos existentes para la galería y Swiper */
+.galeria-de-fotos {
+  padding: 60px 0;
+  background: #fdfdfd;
+  text-align: center;
+  position: relative; /* Añadido para un contexto de apilamiento adecuado */
+  z-index: 1;
+}
+
+.galeria-de-fotos h2 {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: #1e1e2f;
+  font-weight: 800;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.trabajosSwiper {
+  width: 90%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-image-container {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.swiper-slide:hover img {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  color: white;
+  font-size: 2rem;
+}
+
+.swiper-slide:hover .overlay {
+  opacity: 1;
+}
+
+/* === ESTILOS CORREGIDOS PARA EL LIGHTBOX AVANZADO === */
+.custom-lightbox {
+  position: fixed; /* Clave: lo saca del flujo normal y lo superpone */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.97); /* Fondo oscuro semitransparente */
+  display: flex;
+  flex-direction: column;
+  z-index: 9999; /* Asegura que esté por encima de todo */
+  animation: fadeIn 0.3s ease;
+  color: #fff; /* Color de texto por defecto para el lightbox */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lightbox-header {
+  width: 100%;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.lightbox-title {
+  color: #aaa;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+  color: white;
+}
+
+.lightbox-main-content {
+  flex-grow: 1; /* Ocupa el resto del espacio vertical */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  overflow: hidden; /* Evita barras de scroll inesperadas */
+}
+
+.nav-arrow {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 20px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  z-index: 10000;
+}
+
+.nav-arrow:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.lightbox-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.main-image {
+  max-height: calc(100% - 40px); /* Ajusta para dejar margen */
+  max-width: calc(100% - 40px);
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .lightbox-main-content {
+    padding: 0 5px;
+  }
+  .nav-arrow {
+    font-size: 1.5rem;
+    padding: 10px;
+  }
+}

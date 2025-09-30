@@ -1,0 +1,21 @@
+<!--Proyectos-->
+<section class="galeria-proyectos" id="proyectos">
+  <h2 class="titulo-galeria">Proyectos</h2>
+
+  <!-- Bucle para generar cada item de la galería -->
+  @for (project of projects; track project.img) {
+    <div class="galeria-item" [ngClass]="project.rowClass">
+      <img [src]="project.img" [alt]="project.alt" class="galeria-img" loading="lazy" (click)="openLightbox(project)">
+      <p class="galeria-leyenda">{{ project.text }}</p>
+    </div>
+  }
+
+  <!-- Lightbox -->
+  @if (lightboxVisible) {
+    <div class="lightbox" (click)="closeLightbox()">
+      <span class="close-btn" (click)="closeLightbox()">×</span>
+      <img [src]="lightboxImage" alt="Imagen ampliada" (click)="$event.stopPropagation()">
+      <p id="lightbox-caption">{{ lightboxCaption }}</p>
+    </div>
+  }
+</section>

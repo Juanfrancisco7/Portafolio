@@ -1,0 +1,57 @@
+<!-- Galería de fotos -->
+<section class="galeria-de-fotos" id="galeria">
+  <h2>Galería de fotos</h2>
+
+  <!-- Swiper -->
+  <div class="swiper trabajosSwiper">
+    <div class="swiper-wrapper">
+
+      <!-- Bucle @for que ahora pasa el índice a la función de apertura -->
+      @for (image of images; track image.src; let i = $index) {
+        <div class="swiper-slide">
+          <div class="gallery-image-container" (click)="openLightbox(i)">
+            <img [src]="image.src" [alt]="image.alt" loading="lazy" />
+            <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
+          </div>
+        </div>
+      }
+
+    </div>
+
+    <!-- Controles -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <br><br><br><br>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+<!-- Nuestro Lightbox de Galería Avanzado -->
+@if (currentIndex !== null) {
+  <div class="custom-lightbox">
+    <!-- Header del Lightbox -->
+    <div class="lightbox-header" (click)="$event.stopPropagation()">
+      <span class="counter">{{ currentIndex + 1 }} / {{ images.length }}</span>
+      <span class="lightbox-title">Galería de fotos</span>
+      <button class="close-btn" (click)="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Contenido Principal con Navegación -->
+    <div class="lightbox-main-content">
+      <!-- Flecha Izquierda con la LLAMADA A LA FUNCIÓN CORREGIDA -->
+      <button class="nav-arrow prev" (click)="goToPrevImage(); $event.stopPropagation()">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <!-- Imagen Principal -->
+      <div class="lightbox-image-container" (click)="$event.stopPropagation()">
+        <img [src]="currentImage?.src" [alt]="currentImage?.alt" class="main-image">
+      </div>
+
+      <!-- Flecha Derecha con la LLAMADA A LA FUNCIÓN CORREGIDA -->
+      <button class="nav-arrow next" (click)="goToNextImage(); $event.stopPropagation()">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+}

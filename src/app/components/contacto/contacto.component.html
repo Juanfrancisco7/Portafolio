@@ -1,0 +1,59 @@
+<!-- Notificación Flotante -->
+@if (notification.message) {
+  <div class="notification-bar" [ngClass]="notification.type">
+    {{ notification.message }}
+  </div>
+}
+
+<!-- Contactame -->
+<section class="contactame" id="contactame">
+  <div class="contactame__container container">
+    <div class="contactame__contenido">
+      <h1 class="contactame__contenido__title" data-aos="fade-up">Contacta conmigo</h1>
+      
+      <!-- Formulario conectado a Angular -->
+      <form class="contactame__formulario" #contactForm="ngForm" (ngSubmit)="sendEmail(contactForm)">
+        <fieldset [disabled]="isSending">
+
+          <!-- Campo Nombre -->
+          <div class="input-container">
+            <input name="from_name" class="input" type="text" placeholder=" " minlength="5" maxlength="50" required ngModel>
+            <label class="input-label" for="from_name">Nombre</label>
+          </div>
+          
+          <!-- Campo Email -->
+          <div class="input-container">
+            <input name="email" class="input" type="email" placeholder=" " required ngModel>
+            <label class="input-label" for="email">Email</label>
+          </div>
+
+          <!-- Campo Asunto -->
+          <div class="input-container">
+            <input name="asunto" class="input" type="text" placeholder=" " required ngModel>
+            <label class="input-label" for="asunto">Asunto</label>
+          </div>
+
+          <!-- Campo Mensaje -->
+          <div class="textarea-container">
+            <textarea name="mensaje" class="textarea" placeholder=" " required ngModel></textarea>
+            <label class="textarea-label" for="mensaje">Mensaje</label>
+          </div>
+
+          <!-- Checkbox Aceptación -->
+          <div class="form-group">
+            <input type="checkbox" id="acepto_politica" required ngModel name="acepto_politica">
+            <label for="acepto_politica">Acepto la política de privacidad</label>
+          </div>
+          <br>
+
+          <!-- Botón de Enviar Dinámico -->
+          <div class="btn__enviar">
+            <button class="btn btn-enviar" type="submit" [disabled]="isSending">
+              {{ isSending ? 'Enviando...' : 'Enviar mensaje' }}
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>

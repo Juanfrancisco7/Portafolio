@@ -1,0 +1,22 @@
+<!-- Botón "Volver Arriba" que aparece y desaparece dinámicamente -->
+@if (showBackToTop) {
+  <button class="back-to-top" (click)="scrollToTop()">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+}
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="social-links">
+      <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+    </div>
+    <p class="developer-credit">Diseñado y desarrollado por Juan Francisco Bencomo Chacín</p>
+    <!-- El año se actualiza automáticamente gracias a la variable 'currentYear' -->
+    <p class="copyright-text">© {{ currentYear }} JFBCH - Todos los derechos reservados.</p>
+  </div>
+</footer>

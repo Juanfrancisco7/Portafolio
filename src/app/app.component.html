@@ -1,0 +1,22 @@
+<!-- Aquí llamamos a nuestro componente de cabecera -->
+<app-header></app-header>
+<app-banner></app-banner>
+<app-sobre-mi></app-sobre-mi>
+<app-skills-hobbies></app-skills-hobbies>
+<app-certificaciones></app-certificaciones>
+<app-proyectos></app-proyectos>
+<app-galeria></app-galeria>
+<app-contacto></app-contacto>
+<app-footer></app-footer>
+<!-- Notificación de Bienvenida -->
+@if (showWelcomeNotification) {
+  <div class="welcome-notification">
+    <p>¿Ya visitaste <a href="https://www.mundojuan.com" target="_blank">MUNDOJUAN</a>? 
+       Cuéntame tu experiencia <a href="https://www.mundojuan.com" target="_blank">aquí</a></p>
+  </div>
+}
+<!-- Esto es un marcador de posición. Angular cargará aquí los componentes de cada página (ej. Inicio, Contacto) -->
+<router-outlet></router-outlet>
+
+<!-- Cuando crees tu componente de footer, lo añadirás aquí abajo -->
+<!-- <app-footer></app-footer> -->
