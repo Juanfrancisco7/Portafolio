@@ -6,6 +6,15 @@
   --accent-color: #8dc855;
 }
 
+/* LOGO A LA IZQUIERDA */
+.logo_JF7 .logo__img {
+  height: 48px;
+  transform: scale(2);
+  transform-origin: left center;
+  margin-top: -4px;
+  margin-bottom: -6px;
+}
+
 /* --- CONTENEDOR PRINCIPAL DEL HEADER --- */
 .head {
   background-color: var(--header-background);
