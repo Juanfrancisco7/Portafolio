@@ -1,23 +1,24 @@
 <section class="banner">
   <div class="banner__fondo">
-    <div class="banner__propiedades">
+    <!-- La clase 'animation-finished' activa la segunda fase de la animación -->
+    <div class="banner__propiedades" [class.animation-finished]="imageAnimationFinished">
+      
+      <!-- El texto solo empieza a animarse cuando la imagen ha terminado -->
       <div class="banner__descripcion container">
-        
-        <!-- Título con efecto "typewriter" -->
         <h1 class="typing-title">{{ displayedTitle }}<span class="cursor">_</span></h1>
-        
-        <!-- Subtítulos con efecto de aparición mágica -->
         <p class="subtitle" [class.visible]="showSubtitles">
           {{ subtitle1Text }}
         </p>
-        <p class="subtitle" [class.visible]="showSubtitles" style="animation-delay: 0.3s;">
+        <p class="subtitle" [class.visible]="showSubtitles" style="transition-delay: 0.3s;">
           {{ subtitle2Text }}
         </p>
-
       </div>
-      <div class="banner__fondo__img">
+
+      <!-- El contenedor de la imagen tiene el #ViewChild y la animación inicial -->
+      <div #bannerImageContainer class="banner__fondo__img">
         <img class="banner__descripcion__img" src="img/yo.jpg.webp" alt="Imagen de Juan Francisco">
       </div>
+
     </div>
   </div>
 </section>
