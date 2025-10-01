@@ -2,17 +2,20 @@
   <div class="banner__fondo">
     <div class="banner__propiedades">
       <div class="banner__descripcion container">
-        <br>
-        <br>
-        <br> 
         
-        <h1>Hola, soy <b>Juan Francisco</b></h1>
-        <p>
-          Web Developer | Python | JavaScript | Angular <br> Creando soluciones web eficientes.
+        <!-- Título con efecto "typewriter" -->
+        <h1 class="typing-title">{{ displayedTitle }}<span class="cursor">_</span></h1>
+        
+        <!-- Subtítulos con efecto de aparición mágica -->
+        <p class="subtitle" [class.visible]="showSubtitles">
+          {{ subtitle1Text }}
         </p>
+        <p class="subtitle" [class.visible]="showSubtitles" style="animation-delay: 0.3s;">
+          {{ subtitle2Text }}
+        </p>
+
       </div>
       <div class="banner__fondo__img">
-        <!-- RUTA CORREGIDA: Asumiendo que tu imagen está en public/img -->
         <img class="banner__descripcion__img" src="img/yo.jpg.webp" alt="Imagen de Juan Francisco">
       </div>
     </div>
