@@ -9,9 +9,9 @@
 /* LOGO A LA IZQUIERDA */
 .logo_JF7 .logo__img {
   height: 48px;
-  transform: scale(2);
+  transform: scale(4);
   transform-origin: left center;
-  margin-top: -4px;
+  margin-top: -6px;
   margin-bottom: -6px;
 }
 
@@ -22,7 +22,7 @@
   height: var(--header-height);
   position: fixed;
   top: 0;
-  left: 0;
+  left: 2;
   z-index: 1000;
   transition: transform 0.4s ease-in-out;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
