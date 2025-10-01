@@ -21,7 +21,7 @@
 }
 
 /* =======================================================
-   ===      NUEVA ANIMACIÓN PARA LA IMAGEN             ===
+   ===       ANIMACIÓN PARA ESCRITORIO (SIN CAMBIOS)     ===
    ======================================================= */
 .banner__descripcion__img {
   width: 340px;
@@ -31,59 +31,41 @@
   border: 2px solid #8dc853;
   box-shadow: 0 0 40px rgba(141, 200, 83, 0.4);
   cursor: pointer;
-  /* ¡CAMBIO CLAVE! Aplicamos la nueva animación con una duración ajustada */
+  /* Animación por defecto para escritorio */
   animation: fall-bounce-and-slide 2.2s ease-out both;
 }
 
-/* Keyframes para la nueva animación:
-  FASE 1 (0% - 90%): La imagen cae, rebota en el centro de la pantalla.
-  FASE 2 (90% - 100%): La imagen se desliza suavemente a su posición final.
-*/
+/* Keyframes para ESCRITORIO: Cae, rebota y se desliza */
 @keyframes fall-bounce-and-slide {
-  /* --- FASE 1: La imagen cae y rebota en el centro --- */
-  0% {
-    /* Comienza arriba y desplazada a la izquierda (hacia el centro) */
-    transform: translateY(-500px) translateX(-25vw);
-    animation-timing-function: ease-in;
-    opacity: 0;
-  }
-  38% {
-    /* Aterriza en el centro */
-    transform: translateY(0) translateX(-25vw);
-    animation-timing-function: ease-out;
-    opacity: 1;
-  }
-  55% {
-    /* Primer rebote, sigue en el centro */
-    transform: translateY(-65px) translateX(-25vw);
-    animation-timing-function: ease-in;
-  }
-  72% {
-    /* Fin del primer rebote, sigue en el centro */
-    transform: translateY(0) translateX(-25vw);
-    animation-timing-function: ease-out;
-  }
-  85% {
-    /* Rebotes más pequeños, aún en el centro */
-    transform: translateY(-28px) translateX(-25vw);
-    animation-timing-function: ease-in;
-  }
-  90% {
-    /* Se asienta verticalmente, todavía en el centro, lista para deslizarse */
-    transform: translateY(0) translateX(-25vw);
-    animation-timing-function: ease-out;
-  }
-
-  /* --- FASE 2: La imagen se desliza a su posición final --- */
-  100% {
-    /* Se mueve a su posición final a la derecha (translateX(0)) */
-    transform: translateY(0) translateX(0);
-    animation-timing-function: ease-out;
-  }
+  /* FASE 1: Cae y rebota en el centro */
+  0%   { transform: translateY(-500px) translateX(-25vw); animation-timing-function: ease-in; opacity: 0; }
+  38%  { transform: translateY(0) translateX(-25vw); animation-timing-function: ease-out; opacity: 1; }
+  55%  { transform: translateY(-65px) translateX(-25vw); animation-timing-function: ease-in; }
+  72%  { transform: translateY(0) translateX(-25vw); animation-timing-function: ease-out; }
+  85%  { transform: translateY(-28px) translateX(-25vw); animation-timing-function: ease-in; }
+  90%  { transform: translateY(0) translateX(-25vw); animation-timing-function: ease-out; }
+  /* FASE 2: Se desliza a su posición final */
+  100% { transform: translateY(0) translateX(0); animation-timing-function: ease-out; }
 }
 
+/* =======================================================
+   ===      ¡NUEVA! ANIMACIÓN EXCLUSIVA PARA MÓVIL      ===
+   ======================================================= */
+
+/* Keyframes para MÓVIL: Solo cae y rebota, sin deslizarse */
+@keyframes fall-bounce-mobile {
+  0%   { transform: translateY(-500px); animation-timing-function: ease-in; opacity: 0; }
+  38%  { transform: translateY(0); animation-timing-function: ease-out; opacity: 1; }
+  55%  { transform: translateY(-65px); animation-timing-function: ease-in; }
+  72%  { transform: translateY(0); animation-timing-function: ease-out; }
+  81%  { transform: translateY(-28px); animation-timing-function: ease-in; }
+  90%  { transform: translateY(0); animation-timing-function: ease-out; }
+  95%  { transform: translateY(-8px); animation-timing-function: ease-in; }
+  100% { transform: translateY(0); animation-timing-function: ease-out; }
+}
+
+
 .banner__descripcion__img:hover {
-  /* Mantenemos el efecto de brillo y zoom al pasar el ratón */
   box-shadow: 0 0 60px rgba(141, 200, 83, 0.7);
   transform: scale(1.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -151,6 +133,10 @@
     height: 200px;
     margin: 0 auto;
     box-shadow: 0 0 30px rgba(141, 200, 83, 0.4);
-    /* La nueva animación se aplicará aquí también, adaptándose al tamaño */
+
+    /* ¡AQUÍ ESTÁ LA MAGIA!
+       Sobrescribimos la animación para usar la versión de solo rebote en móviles.
+       También ajustamos la duración para que se sienta más rápida y natural. */
+    animation: fall-bounce-mobile 1.6s ease-out both;
   }
 }
