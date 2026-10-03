@@ -1,0 +1,33 @@
+@if (current; as item) {
+  <div class="lb" role="dialog" aria-modal="true" [attr.aria-label]="title || 'Visor de imágenes'"
+       (click)="close()" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
+
+    <div class="lb__top" (click)="$event.stopPropagation()">
+      <span class="lb__counter">{{ (index ?? 0) + 1 }} / {{ items.length }}</span>
+      @if (title) { <span class="lb__title">{{ title }}</span> }
+      <button class="lb__btn" type="button" (click)="close()" aria-label="Cerrar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <figure class="lb__stage">
+      @if (items.length > 1) {
+        <button class="lb__btn lb__nav lb__nav--prev" type="button" (click)="prev(); $event.stopPropagation()" aria-label="Anterior">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      }
+
+      <img class="lb__img" [src]="item.src" [alt]="item.alt" (click)="$event.stopPropagation()" />
+
+      @if (items.length > 1) {
+        <button class="lb__btn lb__nav lb__nav--next" type="button" (click)="next(); $event.stopPropagation()" aria-label="Siguiente">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      }
+    </figure>
+
+    @if (item.caption) {
+      <p class="lb__caption" (click)="$event.stopPropagation()">{{ item.caption }}</p>
+    }
+  </div>
+}

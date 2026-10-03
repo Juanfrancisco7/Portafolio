@@ -1,137 +1,108 @@
-/* Skills y Hobbies Fondo */
-.skills-hobbies {
-    background-color: #f4f4f4;
-    padding: 5rem 2rem;
-    position: relative;
-    overflow: hidden;
+.skills {
+  background:
+    radial-gradient(700px 400px at 0% 100%, rgba(141, 200, 85, 0.07), transparent 60%),
+    var(--bg-2);
+  border-block: 1px solid var(--border);
 }
 
-/* Encabezados con Animación */
-.skills__title, .hobbies__title {
-    font-size: 3rem;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 3rem;
-    text-transform: uppercase;
-    color: #464646;
-    letter-spacing: 3px;
-    position: relative;
-    overflow: hidden;
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(150px, 44%), 1fr));
+  gap: 14px;
 }
 
-.skills__title::after, .hobbies__title::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    background: #4ade80;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: width 0.5s ease-in-out;
+.skill {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 22px 20px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.35s var(--ease), box-shadow 0.35s;
+}
+.skill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(220px 120px at 0% 0%, rgba(141, 200, 85, 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.skill:hover {
+  border-color: rgba(141, 200, 85, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -24px var(--accent-glow);
+}
+.skill:hover::before { opacity: 1; }
+
+.skill__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 1.5rem;
+}
+.skill__badge {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.skill__name { position: relative; font-weight: 600; font-size: 1.02rem; }
+.skill__area {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.skills__title:hover::after, .hobbies__title:hover::after {
-    width: 100%;
+/* ---------- Hobbies ---------- */
+.hobbies {
+  margin-top: clamp(64px, 9vw, 104px);
+  scroll-margin-top: calc(var(--header-h) + 20px);
 }
-
-/* Lista de Skills (3 por fila) */
-.skills__nav {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas por fila */
-    column-gap: 2rem; /* espacio horizontal entre skills */
-    row-gap: 4rem;    /* espacio vertical entre filas */
-    justify-items: center;
-    align-items: center;
+.hobbies__head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.hobbies__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+  letter-spacing: -0.02em;
 }
+.hl { color: var(--accent); }
 
-.skills__list {
-    text-align: center;
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
+.hobbies__list { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.hobby {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.02);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: border-color 0.25s, background-color 0.25s, color 0.25s;
 }
-
-.skills__list:hover {
-    transform: translateY(-10px);
+.hobby i { color: var(--accent); font-size: 1rem; transition: transform 0.3s var(--ease); }
+.hobby i.flip { transform: scaleX(-1); }
+.hobby:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
+.hobby:hover i { transform: scale(1.2) rotate(-8deg); }
+.hobby:hover i.flip { transform: scaleX(-1) scale(1.2) rotate(-8deg); }
 
-.skills__list i {
-    font-size: 3.5rem;
-    color: #8dc855;
-    margin-bottom: 1rem;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.skills__list:hover i {
-    color: #f97316;
-    transform: scale(1.2);
-}
-
-.skills__list p {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #464646;
-}
-
-/* Lista de Hobbies (3 por fila) */
-.hobbies__nav {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 2rem; /* separación horizontal */
-    row-gap: 4rem;     /* separación vertical mejorada entre filas */
-    justify-items: center;
-    align-items: center;
-}
-
-.hobbies__list {
-    text-align: center;
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
-}
-
-.hobbies__list:hover {
-    transform: translateY(-10px);
-}
-
-.hobbies__list i {
-    font-size: 3.5rem;
-    color: #8dc855;
-    margin-bottom: 1rem;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.hobbies__list:hover i {
-    color: #f97316;
-    transform: scale(1.2);
-}
-
-.hobbies__list p {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #464646;
-}
-
-/* RESPONSIVE para pantallas pequeñas */
-@media (max-width: 1024px) {
-    .skills__nav,
-    .hobbies__nav {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .skills__nav,
-    .hobbies__nav {
-        grid-template-columns: 1fr;
-    }
-
-    .skills__list i,
-    .hobbies__list i {
-        font-size: 3rem;
-    }
-
-    .skills__list p,
-    .hobbies__list p {
-        font-size: 1rem;
-    }
+@media (max-width: 480px) {
+  .skill { padding: 18px 16px; }
+  .hobby { padding: 10px 14px; font-size: 0.88rem; }
 }

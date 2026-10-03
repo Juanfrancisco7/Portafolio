@@ -1,21 +1,128 @@
-<!--Proyectos-->
-<section class="galeria-proyectos" id="proyectos">
-  <h2 class="titulo-galeria">Proyectos</h2>
+<section class="section projects" id="proyectos">
+  <div class="container">
 
-  <!-- Bucle para generar cada item de la galería -->
-  @for (project of projects; track project.img) {
-    <div class="galeria-item" [ngClass]="project.rowClass">
-      <img [src]="project.img" [alt]="project.alt" class="galeria-img" loading="lazy" (click)="openLightbox(project)">
-      <p class="galeria-leyenda">{{ project.text }}</p>
+    <div class="section-head" appReveal>
+      <span class="eyebrow">Proyectos</span>
+      <h2 class="section-title">Cosas que he <span class="hl">construido</span></h2>
+      <p class="section-sub">Desde tiendas online hasta una app Android con inteligencia artificial.</p>
     </div>
-  }
 
-  <!-- Lightbox -->
-  @if (lightboxVisible) {
-    <div class="lightbox" (click)="closeLightbox()">
-      <span class="close-btn" (click)="closeLightbox()">×</span>
-      <img [src]="lightboxImage" alt="Imagen ampliada" (click)="$event.stopPropagation()">
-      <p id="lightbox-caption">{{ lightboxCaption }}</p>
+    <!-- =================== DESTACADO: J-FOOD =================== -->
+    <article class="featured card" appReveal>
+      <div class="featured__glow" aria-hidden="true"></div>
+
+      <div class="featured__info">
+        <div class="featured__badges">
+          <span class="badge badge--new"><i class="fa-solid fa-star"></i> Nuevo</span>
+          <span class="badge"><i class="fa-brands fa-android"></i> App Android</span>
+          <span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> IA</span>
+        </div>
+
+        <h3 class="featured__title">J-Food</h3>
+        <p class="featured__tagline">Tu nutricionista de bolsillo: <strong>una foto y la IA calcula lo que comes.</strong></p>
+        <p class="featured__desc">
+          App nativa para Android escrita en <strong>Kotlin</strong> que analiza fotos de comida con inteligencia
+          artificial, estima los gramos de cada alimento y calcula calorías, proteínas, carbohidratos, grasas y más.
+          Diseñada y desarrollada de principio a fin por mí: la app móvil, un backend propio en Node.js desplegado
+          en Vercel, una base de datos Redis y la integración con Health Connect. Probada en un Samsung Galaxy Z Fold 7.
+        </p>
+
+        <ul class="features">
+          @for (f of jfoodFeatures; track f.title) {
+            <li class="feature">
+              <span class="feature__icon"><i [class]="f.icon"></i></span>
+              <div>
+                <strong>{{ f.title }}</strong>
+                <span>{{ f.text }}</span>
+              </div>
+            </li>
+          }
+        </ul>
+
+        <div class="stack">
+          @for (g of jfoodStack; track g.layer) {
+            <div class="stack__group">
+              <span class="stack__layer"><i [class]="g.icon"></i> {{ g.layer }}</span>
+              <div class="tags">
+                @for (t of g.items; track t) { <span class="tag">{{ t }}</span> }
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="shots">
+          <span class="shots__label"><i class="fa-solid fa-mobile-screen"></i> Capturas reales de la app</span>
+          <div class="shots__row">
+            @for (s of jfoodShots; track s.src; let i = $index) {
+              <button type="button" class="shots__item" (click)="shotIndex = i" [attr.aria-label]="'Ver ' + s.alt">
+                <img [src]="s.thumb" [alt]="s.alt" loading="lazy" />
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Mockup de teléfono hecho 100% con HTML/CSS -->
+      <div class="featured__visual">
+        <!-- Captura real de la app, detrás -->
+        <img class="real-shot" src="img/opt/thumb/jfood-principal.webp" alt="" aria-hidden="true" loading="lazy" />
+
+        <!-- Teléfono animado: la IA analizando un plato saludable -->
+        <app-jfood-phone class="featured__phone"></app-jfood-phone>
+
+        <span class="float float--1"><i class="fa-solid fa-bolt"></i> Gemini AI</span>
+        <span class="float float--2"><i class="fa-solid fa-check"></i> 15 nutrientes</span>
+      </div>
+    </article>
+
+    <!-- =================== RESTO DE PROYECTOS =================== -->
+    <div class="grid">
+      @for (p of visibleProjects; track p.title; let i = $index) {
+        <article class="pcard card" appReveal [revealDelay]="(i % 3) * 90">
+          <button class="pcard__media" type="button" (click)="open(p)" [attr.aria-label]="'Ampliar imagen de ' + p.title">
+            <img [src]="p.thumb" [alt]="p.title" loading="lazy" />
+            <span class="pcard__zoom"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></span>
+          </button>
+
+          <div class="pcard__body">
+            <h3 class="pcard__title">{{ p.title }}</h3>
+            <p class="pcard__text">{{ p.text }}</p>
+            <div class="tags">
+              @for (t of p.tags; track t) { <span class="tag">{{ t }}</span> }
+            </div>
+
+            @if (p.demo || p.code) {
+              <div class="pcard__links">
+                @if (p.demo) {
+                  <a [href]="p.demo" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver demo
+                  </a>
+                }
+                @if (p.code) {
+                  <a [href]="p.code" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
+                    <i class="fa-brands fa-github"></i> Código
+                  </a>
+                }
+              </div>
+            }
+          </div>
+        </article>
+      }
     </div>
-  }
+
+    @if (projects.length > initialCount) {
+      <div class="more" appReveal>
+        <button class="btn btn-ghost" type="button" (click)="showAll = !showAll">
+          @if (showAll) {
+            <i class="fa-solid fa-chevron-up"></i> Ver menos
+          } @else {
+            Ver todos los proyectos ({{ projects.length }}) <i class="fa-solid fa-chevron-down"></i>
+          }
+        </button>
+      </div>
+    }
+  </div>
 </section>
+
+<app-lightbox [items]="jfoodShots" [index]="shotIndex" (indexChange)="shotIndex = $event" title="J-Food · capturas reales"></app-lightbox>
+<app-lightbox [items]="lightboxItems" [index]="lightboxIndex" (indexChange)="lightboxIndex = $event" title="Proyectos"></app-lightbox>

@@ -1,0 +1,23 @@
+<!-- Capa CRT: líneas de escaneo muy sutiles + haz de luz que recorre la pantalla -->
+<div class="crt" aria-hidden="true"><span class="crt__beam"></span></div>
+
+<!-- Móvil y tablet: barra de progreso arriba -->
+<div class="topbar" aria-hidden="true"><span class="topbar__fill" #bar></span></div>
+
+<!-- Escritorio: raíl lateral con las secciones -->
+<nav class="rail" #rail aria-label="Secciones de la página">
+  <span class="rail__track" aria-hidden="true">
+    <span class="rail__fill" #fill></span>
+    <span class="rail__head" #head></span>
+  </span>
+
+  @for (s of sections; track s.id; let i = $index) {
+    <a class="rail__tick" [href]="'#' + s.id" [attr.aria-label]="'Ir a ' + s.label">
+      <span class="rail__name"><b>0{{ i }}</b> /{{ s.label }}</span>
+    </a>
+  }
+
+  <span class="rail__readout" aria-hidden="true">
+    <span class="rail__arrow" #arrow>▼</span> SCAN <b #pct>000</b>%
+  </span>
+</nav>

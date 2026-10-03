@@ -1,190 +1,197 @@
-/* --- VARIABLES DE ESTILO --- */
-:host {
-  --header-height: 80px;
-  --header-background: #2c3e50;
-  --text-color: #ffffff;
-  --accent-color: #8dc855;
-}
-
-/* LOGO A LA IZQUIERDA */
-.logo_JF7 .logo__img {
-  height: 48px;
-  transform: scale(4);
-  transform-origin: left center;
-  margin-top: -6px;
-  margin-bottom: -6px;
-}
-
-/* --- CONTENEDOR PRINCIPAL DEL HEADER --- */
 .head {
-  background-color: var(--header-background);
-  width: 100%;
-  height: var(--header-height);
   position: fixed;
-  top: 0;
-  left: 2;
+  inset: 0 0 auto 0;
   z-index: 1000;
-  transition: transform 0.4s ease-in-out;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  height: var(--header-h);
+  transition: transform 0.45s var(--ease), background-color 0.3s, border-color 0.3s;
+  border-bottom: 1px solid transparent;
 }
 
-.head.header-hidden {
-  transform: translateY(-100%);
+.head--scrolled {
+  background: rgba(7, 9, 12, 0.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom-color: var(--border);
 }
 
-.head__container {
-  max-width: 1200px;
-  margin: 0 auto;
+.head--hidden { transform: translateY(-100%); }
+
+.head__inner {
   height: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 1.5rem;
+  gap: 24px;
 }
 
-/* --- ESTILOS BASE (MOBILE-FIRST) --- */
-.logo-link {
-  font-size: 1.2rem;
+/* ---------- Logo ---------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  position: relative;
+  z-index: 1101;
+}
+.logo__mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--text-color);
-  text-decoration: none;
-  white-space: nowrap;
+  color: #0a0d10;
+  background: var(--accent);
+  box-shadow: 0 0 24px -4px var(--accent-glow);
+}
+.logo__text {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
 }
 
-.header__right {
+/* ---------- Nav escritorio ---------- */
+.nav { display: none; }
+
+.nav__list {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+}
+
+.nav__link {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  transition: color 0.25s, background-color 0.25s;
+}
+.nav__link:hover { color: var(--text); }
+.nav__link.is-active {
+  color: #0a0d10;
+  background: var(--accent);
+}
+
+/* ---------- Derecha ---------- */
+.head__right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 8px;
 }
 
-.social-icons {
+.icon-link {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 1.1rem;
+  transition: color 0.25s, background-color 0.25s;
+}
+.icon-link:hover { color: var(--accent); background: var(--accent-soft); }
+
+.head__cta { display: none; }
+
+/* ---------- Hamburguesa ---------- */
+.burger {
+  position: relative;
+  z-index: 1101;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-}
-
-.social-icon {
-  color: var(--text-color);
-  font-size: 1.3rem;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.social-icon:hover {
-  color: var(--accent-color);
-  transform: scale(1.1);
-}
-
-.head__nav--desktop {
-  display: none; /* Oculto en móvil */
-}
-
-.toggle-button {
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--text-color);
-  cursor: pointer;
-  z-index: 1001;
-}
-
-.head__nav--mobile {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: var(--header-background);
-  display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 5px;
+}
+.burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform 0.35s var(--ease), opacity 0.2s;
+}
+.burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity: 0; }
+.burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- Menú móvil ---------- */
+.mnav {
+  position: fixed;
+  inset: 0;
+  z-index: 990;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--header-h) + 16px) var(--gutter) 32px;
+  background:
+    radial-gradient(600px 400px at 100% 0%, rgba(141, 200, 85, 0.14), transparent 60%),
+    rgba(7, 9, 12, 0.98);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-100%);
-  transition: all 0.4s ease-in-out;
+  transition: opacity 0.35s var(--ease), visibility 0.35s;
+}
+.mnav.is-open { opacity: 1; visibility: visible; }
+
+.mnav__list { display: flex; flex-direction: column; gap: 6px; }
+
+.mnav__list li {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+}
+.mnav.is-open .mnav__list li { opacity: 1; transform: none; }
+
+.mnav__link {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 8vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--border);
+}
+.mnav__link.is-active, .mnav__link:hover { color: var(--accent); }
+.mnav__num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
 }
 
-.head__nav--mobile.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.mnav__foot {
+  display: flex;
+  gap: 12px;
+  margin-top: 36px;
+}
+.mnav__foot a {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  font-size: 1.15rem;
 }
 
-.head__nav--mobile ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-
-.head__nav--mobile li {
-  margin: 1.5rem 0;
-}
-
-.head__nav--mobile .head__list {
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 1.8rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.head__nav--mobile .head__list:hover {
-  color: var(--accent-color);
-}
-
-/* =======================================================
-   === ESTILOS PARA PANTALLAS GRANDES (DESKTOP) ===
-   ======================================================= */
+/* ---------- Escritorio ---------- */
 @media (min-width: 992px) {
-  .head__container {
-    padding: 0 2rem;
-  }
-  
-  /* Hacemos que cada sección ocupe su lugar */
-  .logo-link {
-    flex: 1; /* Ocupa una parte del espacio */
-    justify-content: flex-start;
-    font-size: 1.5rem;
-  }
-  
-  .head__nav--desktop {
-    display: flex;
-    flex: 2; /* Ocupa el doble de espacio, centrando el contenido */
-    justify-content: center;
-  }
-  
-  .header__right {
-    flex: 1; /* Ocupa una parte del espacio */
-    justify-content: flex-end;
-    gap: 1.5rem;
-  }
-
-  .social-icon {
-    font-size: 1.5rem;
-  }
-  
-  .head__nav--desktop ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 1.5rem;
-  }
-  
-  .head__nav--desktop .head__list {
-    font-size: 1rem;
-    color: var(--text-color);
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .head__nav--desktop .head__list:hover {
-    color: var(--accent-color);
-  }
-  
-  .toggle-button {
-    display: none; /* Ocultamos el botón hamburguesa */
-  }
+  .nav { display: block; }
+  .head__cta { display: inline-flex; margin-left: 6px; }
+  .burger, .mnav { display: none; }
 }
 
+@media (max-width: 420px) {
+  .logo__text { display: none; }
+}

@@ -1,60 +1,62 @@
-/* Estilos para la Notificación de Bienvenida (Diseño Final) */
-.welcome-notification {
+/* Notificación de bienvenida (MundoJuan) */
+.welcome {
   position: fixed;
+  left: 20px;
   bottom: 20px;
-  left: 20px; /* <--- Posicionado a la izquierda */
-  background-color: #e8a13a; /* Color naranja de la imagen */
-  color: #ffffff; /* Color de texto principal blanco */
-  padding: 1rem 1.5rem;
-  border-radius: 12px; /* Bordes más redondeados */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  z-index: 9999;
-  max-width: 500px; /* Ancho máximo en pantallas grandes */
-  animation: slideUp 0.5s ease-out forwards;
+  z-index: 950;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 460px;
+  padding: 14px 14px 14px 16px;
+  border-radius: 16px;
+  background: rgba(16, 21, 28, 0.92);
+  border: 1px solid rgba(141, 200, 85, 0.35);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: welcome-in 0.5s var(--ease) both;
 }
 
-.welcome-notification p {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.5;
-  font-weight: 500;
+.welcome__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #0a0d10;
 }
 
-.welcome-notification a {
-  color: #4b0082; /* Color morado para los enlaces */
-  text-decoration: none; /* Quitamos el subrayado por defecto */
-  font-weight: bold;
-  transition: opacity 0.3s ease;
+.welcome p { font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
+.welcome a { color: var(--accent); font-weight: 700; }
+.welcome a:hover { text-decoration: underline; }
+.welcome strong { color: var(--text); }
+
+.welcome__close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--dim);
+  transition: color 0.2s, background-color 0.2s;
+}
+.welcome__close:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+
+@keyframes welcome-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
 }
 
-.welcome-notification a:hover {
-  opacity: 0.8; /* Efecto sutil al pasar el ratón */
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* --- AJUSTES RESPONSIVE PARA MÓVILES --- */
 @media (max-width: 600px) {
-  .welcome-notification {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    max-width: none; /* Permitimos que ocupe casi todo el ancho */
-    width: auto; /* El ancho se ajustará al contenido y los márgenes */
-    text-align: center;
+  .welcome {
+    left: 12px;
+    right: 80px; /* deja sitio al botón "volver arriba" */
+    bottom: 12px;
+    max-width: none;
   }
-
-  .welcome-notification p {
-    font-size: 0.9rem;
-  }
+  .welcome p { font-size: 0.82rem; }
 }
-

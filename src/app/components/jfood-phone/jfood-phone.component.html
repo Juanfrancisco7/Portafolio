@@ -1,0 +1,198 @@
+<div class="device" [attr.data-phase]="phase" aria-hidden="true">
+  <div class="device__frame">
+    <div class="device__camera"></div>
+
+    <div class="screen">
+      <!-- Barra de estado -->
+      <div class="status">
+        <span>19:51</span>
+        <span class="status__icons"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-three-quarters"></i></span>
+      </div>
+
+      <!-- Pestañas (igual que en la app real) -->
+      <div class="tabs">
+        <span class="tabs__item is-active">Principal</span>
+        <span class="tabs__item">Historial</span>
+        <span class="tabs__item">Comidas</span>
+        <span class="tabs__item">Gráficas</span>
+      </div>
+
+      <!-- Foto del plato + análisis -->
+      <div class="shot">
+        <svg class="plate" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="jf-table" cx="50%" cy="45%" r="75%">
+              <stop offset="0" stop-color="#5a4330" />
+              <stop offset="1" stop-color="#23170f" />
+            </radialGradient>
+            <radialGradient id="jf-plate" cx="45%" cy="40%" r="60%">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="0.85" stop-color="#f1eee6" />
+              <stop offset="1" stop-color="#dcd7cb" />
+            </radialGradient>
+            <linearGradient id="jf-salmon" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffa36e" />
+              <stop offset="1" stop-color="#e8622f" />
+            </linearGradient>
+            <radialGradient id="jf-avo" cx="35%" cy="40%" r="70%">
+              <stop offset="0" stop-color="#e3ef9a" />
+              <stop offset="0.6" stop-color="#a9cf5a" />
+              <stop offset="1" stop-color="#4f7d24" />
+            </radialGradient>
+            <radialGradient id="jf-tomato" cx="35%" cy="35%" r="70%">
+              <stop offset="0" stop-color="#ff7a5c" />
+              <stop offset="1" stop-color="#c8231a" />
+            </radialGradient>
+            <filter id="jf-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000" flood-opacity="0.45" />
+            </filter>
+            <filter id="jf-soft" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.25" />
+            </filter>
+          </defs>
+
+          <!-- Mesa de madera -->
+          <rect width="300" height="300" fill="url(#jf-table)" />
+          <g stroke="#000" stroke-opacity="0.12" stroke-width="1.2">
+            <path d="M0 40 Q150 30 300 46" fill="none" />
+            <path d="M0 110 Q160 100 300 118" fill="none" />
+            <path d="M0 190 Q140 182 300 196" fill="none" />
+            <path d="M0 262 Q150 254 300 270" fill="none" />
+          </g>
+
+          <!-- Plato -->
+          <circle cx="150" cy="150" r="140" fill="url(#jf-plate)" filter="url(#jf-shadow)" />
+          <circle cx="150" cy="150" r="118" fill="#fbfaf5" stroke="#e7e2d6" stroke-width="2" />
+
+          <!-- Quinoa -->
+          <g filter="url(#jf-soft)">
+            <ellipse cx="93" cy="204" rx="54" ry="44" fill="#ead9ab" />
+            <g fill="#f6ead0">
+              <circle cx="70" cy="190" r="2.4" /><circle cx="80" cy="210" r="2.2" /><circle cx="95" cy="185" r="2.4" />
+              <circle cx="105" cy="200" r="2.2" /><circle cx="118" cy="215" r="2.4" /><circle cx="88" cy="225" r="2.2" />
+              <circle cx="60" cy="208" r="2" /><circle cx="110" cy="230" r="2.2" /><circle cx="125" cy="195" r="2" />
+              <circle cx="75" cy="232" r="2" /><circle cx="98" cy="240" r="2.2" /><circle cx="65" cy="222" r="2" />
+            </g>
+            <g fill="#c9a96a">
+              <circle cx="84" cy="196" r="1.6" /><circle cx="100" cy="216" r="1.6" /><circle cx="114" cy="206" r="1.6" />
+              <circle cx="72" cy="216" r="1.6" /><circle cx="92" cy="232" r="1.6" /><circle cx="120" cy="222" r="1.4" />
+            </g>
+            <g fill="#b23a3a" opacity="0.7">
+              <circle cx="78" cy="202" r="1.6" /><circle cx="108" cy="190" r="1.4" /><circle cx="86" cy="240" r="1.4" />
+            </g>
+          </g>
+
+          <!-- Salmón -->
+          <g transform="rotate(-12 99 93)" filter="url(#jf-soft)">
+            <rect x="44" y="60" width="110" height="66" rx="22" fill="url(#jf-salmon)" />
+            <g stroke="#ffe3cf" stroke-width="3" stroke-linecap="round" opacity="0.75" fill="none">
+              <path d="M62 66 Q70 93 60 120" /><path d="M82 63 Q92 93 80 123" />
+              <path d="M102 62 Q113 93 100 124" /><path d="M122 62 Q133 93 120 124" />
+            </g>
+            <rect x="44" y="60" width="110" height="18" rx="9" fill="#c94e22" opacity="0.35" />
+            <!-- sésamo -->
+            <g fill="#fff8e6">
+              <ellipse cx="70" cy="85" rx="2.4" ry="1.3" /><ellipse cx="96" cy="100" rx="2.4" ry="1.3" transform="rotate(30 96 100)" />
+              <ellipse cx="118" cy="82" rx="2.4" ry="1.3" /><ellipse cx="136" cy="104" rx="2.4" ry="1.3" transform="rotate(-20 136 104)" />
+            </g>
+          </g>
+
+          <!-- Huevo -->
+          <g filter="url(#jf-soft)">
+            <ellipse cx="189" cy="42" rx="27" ry="20" fill="#fffdf7" />
+            <circle cx="191" cy="43" r="11" fill="#f6b21a" />
+            <circle cx="188" cy="40" r="4" fill="#ffd36a" />
+          </g>
+
+          <!-- Aguacate en láminas -->
+          <g filter="url(#jf-soft)">
+            <path d="M190 70 C230 62 262 90 255 120 C248 140 222 132 210 118 C198 104 176 78 190 70Z" fill="url(#jf-avo)" stroke="#3c6420" stroke-width="3" />
+            <path d="M184 92 C222 88 252 116 244 144 C236 162 212 152 200 138 C188 124 170 98 184 92Z" fill="url(#jf-avo)" stroke="#3c6420" stroke-width="3" />
+            <path d="M182 116 C214 116 238 140 228 160 C220 174 200 166 192 154 C182 140 170 120 182 116Z" fill="url(#jf-avo)" stroke="#3c6420" stroke-width="3" />
+          </g>
+
+          <!-- Espinacas -->
+          <g filter="url(#jf-soft)">
+            <path d="M196 196 C214 170 252 176 250 204 C230 214 212 212 196 196Z" fill="#3f8f3a" />
+            <path d="M196 196 L246 202" stroke="#2a6a28" stroke-width="2" />
+            <path d="M200 214 C204 182 238 186 248 214 C236 236 214 236 200 214Z" fill="#5fae48" />
+            <path d="M202 214 L244 216" stroke="#3f8f3a" stroke-width="2" />
+            <path d="M186 228 C200 204 236 214 232 244 C212 252 196 246 186 228Z" fill="#4b9b40" />
+            <path d="M188 230 L228 240" stroke="#2a6a28" stroke-width="2" />
+            <path d="M218 236 C232 220 258 230 252 250 C240 258 226 252 218 236Z" fill="#6bbd52" />
+          </g>
+
+          <!-- Tomates cherry -->
+          <g filter="url(#jf-soft)">
+            <circle cx="146" cy="150" r="15" fill="url(#jf-tomato)" />
+            <circle cx="170" cy="168" r="13" fill="url(#jf-tomato)" />
+            <circle cx="142" cy="178" r="12" fill="url(#jf-tomato)" />
+            <g fill="#3d8a2d">
+              <path d="M146 140 l3 -5 l2 5 l5 -1 l-4 4 l3 4 l-5 -1 l-3 4 l-2 -5 l-5 0 l4 -3 l-3 -4z" />
+              <path d="M170 160 l2 -4 l2 4 l4 -1 l-3 3 l2 3 l-4 -1 l-2 3 l-2 -4 l-4 0 l3 -2 l-2 -3z" />
+            </g>
+            <g fill="#fff" opacity="0.55">
+              <ellipse cx="140" cy="145" rx="4" ry="2.5" /><ellipse cx="165" cy="163" rx="3.4" ry="2" /><ellipse cx="137" cy="173" rx="3" ry="2" />
+            </g>
+          </g>
+
+          <!-- Limón -->
+          <path d="M226 262 A40 40 0 0 1 262 230 L240 250Z" fill="#ffe066" stroke="#f2c230" stroke-width="3" opacity="0.95" />
+        </svg>
+
+        <!-- Rejilla y barrido de escaneo -->
+        <div class="shot__grid"></div>
+        <div class="shot__scan"></div>
+
+        <!-- Cajas de detección -->
+        @for (d of detections; track d.name; let i = $index) {
+          <div class="box" [class.is-on]="i < shownBoxes"
+               [style.left.%]="d.x" [style.top.%]="d.y" [style.width.%]="d.w" [style.height.%]="d.h">
+            <span class="box__label" [class.box__label--bottom]="d.labelBottom">{{ d.name }} · {{ d.grams }} g</span>
+          </div>
+        }
+
+        <!-- Chip de estado -->
+        <div class="pill">
+          @switch (phase) {
+            @case ('scanning') { <i class="fa-solid fa-wand-magic-sparkles"></i> Analizando con IA… {{ progress }}% }
+            @case ('detecting') { <i class="fa-solid fa-eye"></i> Detectando alimentos… }
+            @case ('results') { <i class="fa-solid fa-circle-check"></i> {{ detections.length }} alimentos detectados }
+            @default { <i class="fa-solid fa-camera"></i> Foto lista }
+          }
+        </div>
+        <div class="shot__bar"><span [style.width.%]="phase === 'scanning' ? progress : (phase === 'idle' ? 0 : 100)"></span></div>
+      </div>
+
+      <!-- Resultado -->
+      <div class="result">
+        <div class="result__kcal">
+          <strong>{{ kcal }}</strong>
+          <span>kcal · este plato</span>
+        </div>
+        <span class="result__goal">Meta</span>
+      </div>
+      <div class="meter"><span [style.width.%]="(kcal / 2000) * 100"></span></div>
+
+      <div class="macros">
+        @for (m of macros; track m.label; let i = $index) {
+          <div class="macro">
+            <small [style.color]="m.color">{{ m.label }}</small>
+            <b>{{ macroValues[i] }}<em>g</em></b>
+          </div>
+        }
+      </div>
+
+      <!-- Botón que aparece con el resultado -->
+      <div class="save" [class.is-on]="phase === 'results'">
+        <i class="fa-solid fa-plus"></i> Guardar en Comidas
+      </div>
+
+      <!-- Barra inferior con cámara -->
+      <div class="dock">
+        <span class="dock__cam"><i class="fa-solid fa-camera"></i></span>
+        <span class="dock__gal"><i class="fa-solid fa-image"></i></span>
+      </div>
+    </div>
+  </div>
+</div>

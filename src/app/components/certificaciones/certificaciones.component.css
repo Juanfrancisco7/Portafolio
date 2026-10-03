@@ -1,68 +1,77 @@
-/* Título de la Sección */
-.experiencia__title {
-  font-size: 2.5rem;
-  text-align: center;
-  padding-bottom: 7rem;
-  font-weight: bold;
-  color: #464646;
+.certs {
+  background: var(--bg-2);
+  border-block: 1px solid var(--border);
 }
+.hl { color: var(--accent); }
 
-/* Contenedor principal de las imágenes */
-.experiencia__container {
+.certs__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.certs__count {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  padding-bottom: 7rem;
+  align-items: flex-end;
+  margin-bottom: clamp(36px, 6vw, 64px);
+}
+.certs__count strong {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 1;
+  color: var(--accent);
+}
+.certs__count span { color: var(--dim); font-family: var(--font-mono); font-size: 0.8rem; }
+
+.certs__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: 16px;
 }
 
-/* Fila individual de imágenes */
-.experiencia__row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap; /* Permite que las imágenes pasen a la siguiente línea si no caben */
-  gap: 2rem;
+.cert {
+  position: relative;
+  display: block;
   width: 100%;
-  max-width: 1200px;
+  aspect-ratio: 4 / 3;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: #f3f5f2;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s;
 }
-
-/* Estilo de cada imagen de certificación */
-.experiencia__container__img {
-  width: calc(33.333% - 2rem); /* 3 imágenes por fila con espacio */
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 12px 18px 34px 1px rgba(70, 70, 70, 0.4);
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
+.cert img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s var(--ease);
 }
-
-/* Efecto de hover para agrandar la imagen */
-.experiencia__container__img:hover {
-  transform: scale(1.5);
-  z-index: 10;
+.cert:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px -24px rgba(141, 200, 85, 0.5);
 }
+.cert:hover img { transform: scale(1.04); }
 
-/* Responsive para tablets */
-@media (max-width: 1024px) {
-  .experiencia__container__img {
-    width: calc(50% - 2rem); /* 2 imágenes por fila */
-  }
+.cert__overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(7, 9, 12, 0.55);
+  color: #fff;
+  font-size: 1.6rem;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
+.cert:hover .cert__overlay, .cert:focus-visible .cert__overlay { opacity: 1; }
 
-/* Responsive para móviles */
-@media (max-width: 768px) {
-  .experiencia__title {
-    padding-bottom: 4rem;
-  }
-  .experiencia__row {
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-  }
-  .experiencia__container__img {
-    width: 80%; /* 1 imagen por fila */
-  }
-  .experiencia__container__img:hover {
-    transform: scale(1.1); /* Hacemos el efecto de hover más sutil en móviles */
-  }
+.more { display: flex; justify-content: center; margin-top: 36px; }
+
+@media (max-width: 640px) {
+  .certs__head { flex-direction: column; align-items: flex-start; gap: 0; }
+  .certs__count { flex-direction: row; align-items: baseline; gap: 10px; margin-bottom: 28px; margin-top: -16px; }
+  .certs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .cert { padding: 6px; border-radius: 12px; }
 }

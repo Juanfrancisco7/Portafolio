@@ -1,49 +1,43 @@
-<!-- Certificaciones -->
-<section class="experiencia" id="certificaciones">
-  <div class="experiencia__propiedades">
-    <br><br><br><br><br><br>
-    <h2 class="experiencia__title" data-aos="fade-down" data-aos-duration="1500">
-      Certificaciones
-    </h2>
+<section class="section certs" id="certificaciones">
+  <div class="container">
 
-    <div class="experiencia__container">
-      <!-- Fila 1 -->
-      <div class="experiencia__row">
-        <!-- RUTA CORREGIDA: Apuntando a la carpeta public/img -->
-        <img src="img/1.jpg" alt="Certificación 1" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" loading="lazy">
-        <img src="img/2.jpg" alt="Certificación 2" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="100" loading="lazy">
-        <img src="img/3.jpg" alt="Certificación 3" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="200" loading="lazy">
+    <div class="certs__head">
+      <div class="section-head" appReveal>
+        <span class="eyebrow">Certificaciones</span>
+        <h2 class="section-title">Aprendizaje <span class="hl">constante</span></h2>
+        <p class="section-sub">Cursos y certificaciones que respaldan mi formación. Toca cualquiera para verla en grande.</p>
       </div>
-      <!-- Fila 2 -->
-      <div class="experiencia__row">
-        <img src="img/4.jpg" alt="Certificación 4" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="300" loading="lazy">
-        <img src="img/5.jpg" alt="Certificación 5" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="400" loading="lazy">
-        <img src="img/6.jpg" alt="Certificación 6" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="500" loading="lazy">
-      </div>
-      <!-- Fila 3 -->
-      <div class="experiencia__row">
-        <img src="img/7.jpg" alt="Certificación 7" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="600" loading="lazy">
-        <img src="img/8.jpg" alt="Certificación 8" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="700" loading="lazy">
-        <img src="img/9.jpg" alt="Certificación 9" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="800" loading="lazy">
-      </div>
-      <!-- Fila 4 -->
-      <div class="experiencia__row">
-        <img src="img/10.jpg" alt="Certificación 10" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="900" loading="lazy">
-        <img src="img/18.png" alt="Certificación 11" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="1000" loading="lazy">
-        <img src="img/11.jpg" alt="Certificación 12" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="1100" loading="lazy">
-      </div>
-       <!-- Fila 5 -->
-      <div class="experiencia__row">
-        <img src="img/12.jpg" alt="Certificación 13" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="900" loading="lazy">
-        <img src="img/13.jpg" alt="Certificación 14" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="1000" loading="lazy">
-        <img src="img/14.jpg" alt="Certificación 15" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="1100" loading="lazy">
-      </div>
-       <!-- Fila 6 -->
-      <div class="experiencia__row">
-        <img src="img/15.jpg" alt="Certificación 16" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="1100" loading="lazy">
-        <img src="img/16.jpg" alt="Certificación 17" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="1100" loading="lazy">
-        <img src="img/17.jpg" alt="Certificación 18" class="experiencia__container__img" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="1100" loading="lazy">
+      <div class="certs__count" appReveal [revealDelay]="100">
+        <strong>{{ certs.length }}</strong>
+        <span>certificados</span>
       </div>
     </div>
+
+    <ul class="certs__grid">
+      @for (cert of certs; track cert.src; let i = $index) {
+        @if (isVisible(i)) {
+          <li appReveal [revealDelay]="(i % 4) * 70">
+            <button type="button" class="cert" (click)="lightboxIndex = i" [attr.aria-label]="'Ver ' + cert.alt">
+              <img [src]="thumbs[i]" [alt]="cert.alt" loading="lazy" />
+              <span class="cert__overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+            </button>
+          </li>
+        }
+      }
+    </ul>
+
+    @if (certs.length > initialCount) {
+      <div class="more" appReveal>
+        <button class="btn btn-ghost" type="button" (click)="showAll = !showAll">
+          @if (showAll) {
+            <i class="fa-solid fa-chevron-up"></i> Ver menos
+          } @else {
+            Ver las {{ certs.length }} certificaciones <i class="fa-solid fa-chevron-down"></i>
+          }
+        </button>
+      </div>
+    }
   </div>
 </section>
+
+<app-lightbox [items]="certs" [index]="lightboxIndex" (indexChange)="lightboxIndex = $event" title="Certificaciones"></app-lightbox>

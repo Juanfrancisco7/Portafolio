@@ -1,0 +1,152 @@
+:host {
+  display: block;
+  width: min(100%, 420px);
+}
+
+.photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+/* Borde de luz giratorio detrás de la foto */
+.photo__ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 30px;
+  background: conic-gradient(from var(--angle, 0deg), transparent 0deg, var(--accent) 60deg, transparent 140deg, transparent 360deg);
+  filter: blur(10px);
+  opacity: 0.85;
+  animation: spin 6s linear infinite;
+}
+@keyframes spin { to { --angle: 360deg; } }
+
+/* Durante la intro, el borde late más rápido */
+.photo:not(.is-done) .photo__ring { animation-duration: 1.6s; opacity: 1; }
+
+.photo__frame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  background: #020403;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8), 0 0 0 8px rgba(255, 255, 255, 0.02);
+}
+
+.photo__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+.photo__matrix {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.7s ease, filter 0.7s ease;
+}
+.photo.is-done .photo__matrix {
+  opacity: 0;
+  filter: brightness(1.6) blur(2px);
+  pointer-events: none;
+}
+
+/* Indicador tipo HUD */
+.photo__hud {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--accent-bright);
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(168, 236, 106, 0.35);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.photo__rec {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-bright);
+  animation: blink 0.8s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.photo.is-done .photo__hud { opacity: 0; transform: translateY(-6px); }
+
+/* ---------- Etiquetas ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 128px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(10, 16, 12, 0.85);
+  border: 1px solid rgba(168, 236, 106, 0.45);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 22px -6px rgba(141, 200, 85, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: chip-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both, float 4s ease-in-out 0.9s infinite;
+  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.6, -0.3, 0.7, 0), filter 0.6s;
+}
+.chip i { color: var(--accent); font-size: 1rem; width: 1.1em; text-align: center; }
+.chip__text { color: var(--text); }
+
+/* Contenedor sobre las piernas (parte baja de la foto) */
+.chips {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 67%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+.chip { position: relative; }
+.chip--0 { margin-right: 22%; animation-delay: 0.3s, 1s; }
+.chip--1 { margin-left: 26%; animation-delay: 0.8s, 1.8s; }
+.chip--2 { margin-right: 10%; animation-delay: 1.3s, 2.6s; }
+
+@keyframes chip-in {
+  from { opacity: 0; transform: scale(0.6) translateY(10px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+/* Al terminar, las etiquetas se disuelven hacia fuera */
+.photo.is-done .chip {
+  animation: chip-out 0.9s cubic-bezier(0.6, -0.3, 0.7, 0) forwards;
+}
+.photo.is-done .chip--1 { animation-delay: 0.08s; }
+.photo.is-done .chip--2 { animation-delay: 0.16s; }
+@keyframes chip-out {
+  to { opacity: 0; transform: scale(0.7) translateY(-14px); filter: blur(8px); visibility: hidden; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  :host { width: min(72%, 300px); }
+  .chip { font-size: 0.7rem; padding: 5px 10px; min-width: 100px; }
+  .chips { gap: 6px; top: 66%; }
+}

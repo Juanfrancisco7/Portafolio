@@ -1,60 +1,56 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatrixPhotoComponent } from '../matrix-photo/matrix-photo.component';
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [CommonModule],
+  imports: [MatrixPhotoComponent],
   templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.css']
+  styleUrl: './banner.component.css'
 })
-export class BannerComponent implements OnInit, AfterViewInit {
-  // --- Textos para las animaciones ---
-  readonly titleText = 'Hola, soy Juan Francisco';
-  readonly subtitle1Text = 'Web Developer | Python | JavaScript | Angular';
-  readonly subtitle2Text = 'Creando soluciones web eficientes.';
+export class BannerComponent implements OnInit, OnDestroy {
+  // --- Textos (cámbialos aquí cuando quieras) ---
+  readonly fullName = 'Juan Francisco';
+  readonly roles = [
+    'Web Developer',
+    'Angular · TypeScript · JavaScript',
+    'Python & Node.js',
+    'Kotlin · Apps Android con IA',
+    'Bases de datos SQL & Redis',
+  ];
+  readonly stats = [
+    { value: '12+', label: 'Proyectos' },
+    { value: '18', label: 'Certificaciones' },
+    { value: '1', label: 'App Android' },
+  ];
 
-  // --- Propiedades para controlar el estado de las animaciones ---
-  displayedTitle = '';
-  showSubtitles = false;
-  imageAnimationFinished = false;
+  displayedName = '';
+  roleIndex = 0;
 
-  // Obtenemos una referencia al elemento de la imagen
-  @ViewChild('bannerImageContainer') bannerImageContainer!: ElementRef;
-
-  constructor(private renderer: Renderer2) { }
+  private timers: ReturnType<typeof setTimeout>[] = [];
+  private roleInterval?: ReturnType<typeof setInterval>;
 
   ngOnInit(): void {
-    // La animación de texto ya no empieza aquí
+    this.typeName();
+    this.roleInterval = setInterval(() => {
+      this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+    }, 2600);
   }
 
-  ngAfterViewInit(): void {
-    // Escuchamos el evento 'animationend' en el contenedor de la imagen.
-    // Esto nos permite saber cuándo ha terminado la animación de rebote.
-    this.renderer.listen(this.bannerImageContainer.nativeElement, 'animationend', () => {
-      this.imageAnimationFinished = true;
-      // Una vez que la imagen se asienta, empezamos a escribir el texto.
-      this.startTypingAnimation();
-    });
+  ngOnDestroy(): void {
+    this.timers.forEach(t => clearTimeout(t));
+    if (this.roleInterval) clearInterval(this.roleInterval);
   }
 
-  private startTypingAnimation(): void {
-    let charIndex = 0;
-    const typingSpeed = 100;
-
-    const typeCharacter = () => {
-      if (charIndex < this.titleText.length) {
-        this.displayedTitle += this.titleText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeCharacter, typingSpeed);
-      } else {
-        setTimeout(() => {
-          this.showSubtitles = true;
-        }, 500);
+  /** Efecto de máquina de escribir para el nombre */
+  private typeName(): void {
+    let i = 0;
+    const tick = () => {
+      if (i <= this.fullName.length) {
+        this.displayedName = this.fullName.slice(0, i++);
+        this.timers.push(setTimeout(tick, 85));
       }
     };
-
-    typeCharacter();
+    this.timers.push(setTimeout(tick, 350));
   }
 }
-

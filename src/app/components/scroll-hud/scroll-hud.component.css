@@ -1,0 +1,158 @@
+/* ---------- Capa CRT (toda la pantalla, muy sutil) ---------- */
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0, transparent 2px, rgba(0, 0, 0, 0.08) 3px),
+    radial-gradient(ellipse at center, transparent 62%, rgba(0, 0, 0, 0.28) 100%);
+}
+.crt__beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 26vh;
+  background: linear-gradient(to bottom, transparent, rgba(141, 200, 85, 0.035), transparent);
+  animation: beam 9s linear infinite;
+}
+@keyframes beam {
+  from { transform: translateY(-30vh); }
+  to { transform: translateY(110vh); }
+}
+
+/* ---------- Barra superior (móvil / tablet) ---------- */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  height: 2px;
+  pointer-events: none;
+}
+.topbar__fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  box-shadow: 0 0 10px rgba(168, 236, 106, 0.9);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ---------- Raíl lateral (escritorio) ---------- */
+.rail {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  z-index: 900;
+  width: 26px;
+  height: min(56vh, 440px);
+  transform: translate(12px, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, transform 0.5s var(--ease), visibility 0.5s;
+  display: none;
+}
+.rail.is-on { opacity: 1; visibility: visible; transform: translate(0, -50%); }
+
+.rail__track {
+  position: absolute;
+  right: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.rail__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent-bright));
+  box-shadow: 0 0 10px rgba(141, 200, 85, 0.8);
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+.rail__head {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: #e4ffd2;
+  box-shadow: 0 0 0 3px rgba(141, 200, 85, 0.25), 0 0 14px 3px rgba(168, 236, 106, 0.9);
+}
+
+.rail__tick {
+  position: absolute;
+  right: 0;
+  width: 26px;
+  height: 16px;
+  transform: translateY(-50%);
+}
+.rail__tick::before {
+  content: '';
+  position: absolute;
+  right: 6px;
+  top: 7px;
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  transition: width 0.3s var(--ease), background-color 0.3s, box-shadow 0.3s;
+}
+.rail__tick:hover::before,
+.rail__tick.is-active::before {
+  width: 20px;
+  background: var(--accent-bright);
+  box-shadow: 0 0 10px rgba(168, 236, 106, 0.9);
+}
+
+.rail__name {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translate(8px, -50%);
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  background: rgba(7, 10, 8, 0.88);
+  border: 1px solid rgba(168, 236, 106, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s var(--ease);
+}
+.rail__name b { color: var(--accent); font-weight: 700; }
+.rail__tick:hover .rail__name { opacity: 1; transform: translate(0, -50%); }
+
+.rail__readout {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 14px);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+}
+.rail__readout b { color: var(--accent-bright); font-weight: 700; }
+.rail__arrow { color: var(--accent); }
+
+/* Escritorio: raíl visible y barra superior oculta */
+@media (min-width: 992px) {
+  .rail { display: block; }
+  .topbar { display: none; }
+}
+
+/* Pantallas anchas: el nombre de la sección activa siempre visible */
+@media (min-width: 1440px) {
+  .rail__tick.is-active .rail__name { opacity: 1; transform: translate(0, -50%); }
+}

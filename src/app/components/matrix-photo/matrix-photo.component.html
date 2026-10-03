@@ -1,0 +1,21 @@
+<div class="photo" [class.is-done]="phase === 'done'">
+  <div class="photo__ring" aria-hidden="true"></div>
+
+  <div class="photo__frame" #frame>
+    <img class="photo__img" [src]="src" [alt]="alt" width="904" height="904" fetchpriority="high" />
+    <canvas class="photo__matrix" #canvas aria-hidden="true"></canvas>
+    <span class="photo__hud" aria-hidden="true">
+      <span class="photo__rec"></span> RECONSTRUYENDO…
+    </span>
+  </div>
+
+  <!-- Etiquetas que cambian entre todos los lenguajes durante la intro (sobre las piernas) -->
+  <div class="chips" aria-hidden="true">
+    @for (chip of chips; track $index; let i = $index) {
+      <span class="chip chip--{{ i }}">
+        <i [class]="chip.icon"></i>
+        <span class="chip__text">{{ chip.text }}</span>
+      </span>
+    }
+  </div>
+</div>

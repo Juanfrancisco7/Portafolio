@@ -1,22 +1,39 @@
-<!-- Botón "Volver Arriba" que aparece y desaparece dinámicamente -->
-@if (showBackToTop) {
-  <button class="back-to-top" (click)="scrollToTop()">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
-}
+<footer class="footer">
+  <div class="container">
 
-<footer class="site-footer">
-  <div class="footer-content">
-    <div class="social-links">
-      <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <i class="fa-brands fa-github"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <i class="fa-brands fa-linkedin"></i>
-      </a>
+    <div class="footer__top">
+      <div class="footer__brand" appReveal>
+        <a href="#inicio" class="logo">
+          <span class="logo__mark">JF7</span>
+          <span class="logo__text">&#64;JuanFrancisco7</span>
+        </a>
+        <p>Web Developer · Apps con IA · Código con adrenalina.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Enlaces del pie de página" appReveal [revealDelay]="100">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#skills">Skills</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#certificaciones">Certificaciones</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contactame">Contacto</a>
+      </nav>
+
+      <div class="footer__social" appReveal [revealDelay]="200">
+        <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://linktr.ee/juanfrancisco7" target="_blank" rel="noopener noreferrer" aria-label="Linktree"><i class="fa-solid fa-link"></i></a>
+      </div>
     </div>
-    <p class="developer-credit">Diseñado y desarrollado por Juan Francisco Bencomo Chacín</p>
-    <!-- El año se actualiza automáticamente gracias a la variable 'currentYear' -->
-    <p class="copyright-text">© {{ currentYear }} JFBCH - Todos los derechos reservados.</p>
+
+    <div class="footer__bottom" appReveal [revealDelay]="120">
+      <p>© {{ currentYear }} Juan Francisco Bencomo Chacín · Todos los derechos reservados.</p>
+      <p class="footer__made">Diseñado y desarrollado con <i class="fa-solid fa-bolt"></i> en Angular</p>
+    </div>
   </div>
 </footer>
+
+<!-- Botón "Volver arriba" -->
+<button class="to-top" type="button" [class.is-visible]="showBackToTop" (click)="scrollToTop()" aria-label="Volver arriba">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>

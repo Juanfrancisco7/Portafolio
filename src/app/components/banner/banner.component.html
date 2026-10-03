@@ -1,24 +1,56 @@
-<section class="banner">
-  <div class="banner__fondo">
-    <!-- La clase 'animation-finished' activa la segunda fase de la animación -->
-    <div class="banner__propiedades" [class.animation-finished]="imageAnimationFinished">
-      
-      <!-- El texto solo empieza a animarse cuando la imagen ha terminado -->
-      <div class="banner__descripcion container">
-        <h1 class="typing-title">{{ displayedTitle }}<span class="cursor">_</span></h1>
-        <p class="subtitle" [class.visible]="showSubtitles">
-          {{ subtitle1Text }}
-        </p>
-        <p class="subtitle" [class.visible]="showSubtitles" style="transition-delay: 0.3s;">
-          {{ subtitle2Text }}
-        </p>
+<section class="hero" id="inicio">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="hero__inner container">
+
+    <!-- Texto -->
+    <div class="hero__text">
+      <span class="hero__status">
+        <span class="pulse" aria-hidden="true"></span>
+        Disponible para nuevos proyectos
+      </span>
+
+      <h1 class="hero__title">
+        <span class="hero__hello">Hola, soy</span>
+        <span class="hero__name">{{ displayedName }}<span class="caret" aria-hidden="true"></span></span>
+      </h1>
+
+      <p class="hero__role">
+        <span class="mono">&gt;</span> {{ roles[roleIndex] }}
+      </p>
+
+      <p class="hero__lead">
+        Creo experiencias web y apps rápidas, modernas y con personalidad.
+        Del código al <em>caos controlado</em>: misma pasión, distinta pista.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#proyectos" class="btn btn-primary">
+          Ver proyectos <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#contactame" class="btn btn-ghost">
+          <i class="fa-regular fa-paper-plane"></i> Contáctame
+        </a>
       </div>
 
-      <!-- El contenedor de la imagen tiene el #ViewChild y la animación inicial -->
-      <div #bannerImageContainer class="banner__fondo__img">
-        <img class="banner__descripcion__img" src="img/yo.jpg.webp" alt="Imagen de Juan Francisco">
-      </div>
+      <ul class="hero__stats">
+        @for (stat of stats; track stat.label) {
+          <li>
+            <strong>{{ stat.value }}</strong>
+            <span>{{ stat.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
 
+    <!-- Foto -->
+    <div class="hero__visual">
+      <app-matrix-photo src="img/opt/yo.webp" alt="Juan Francisco Bencomo Chacín"></app-matrix-photo>
     </div>
   </div>
+
+  <a href="#sobre-mi" class="hero__scroll" aria-label="Bajar a la siguiente sección">
+    <span></span>
+  </a>
 </section>

@@ -1,59 +1,220 @@
-<!-- Notificación Flotante -->
-@if (notification.message) {
-  <div class="notification-bar" [ngClass]="notification.type">
-    {{ notification.message }}
-  </div>
-}
+<section class="section contact" id="contactame" (pointermove)="onSectionMove($event)">
+  <app-particles></app-particles>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="orb orb--1" aria-hidden="true"></div>
+  <div class="orb orb--2" aria-hidden="true"></div>
 
-<!-- Contactame -->
-<section class="contactame" id="contactame">
-  <div class="contactame__container container">
-    <div class="contactame__contenido">
-      <h1 class="contactame__contenido__title" data-aos="fade-up">Contacta conmigo</h1>
-      
-      <!-- Formulario conectado a Angular -->
-      <form class="contactame__formulario" #contactForm="ngForm" (ngSubmit)="sendEmail(contactForm)">
-        <fieldset [disabled]="isSending">
+  <div class="container contact__grid">
 
-          <!-- Campo Nombre -->
-          <div class="input-container">
-            <input name="from_name" class="input" type="text" placeholder=" " minlength="5" maxlength="50" required ngModel>
-            <label class="input-label" for="from_name">Nombre</label>
-          </div>
-          
-          <!-- Campo Email -->
-          <div class="input-container">
-            <input name="email" class="input" type="email" placeholder=" " required ngModel>
-            <label class="input-label" for="email">Email</label>
-          </div>
+    <!-- ================= Columna izquierda ================= -->
+    <div class="contact__info">
+      <div class="section-head" appReveal>
+        <span class="eyebrow">Contacto</span>
+        <h2 class="section-title">
+          ¿Tienes una idea?<br>
+          <span class="wave" aria-label="Hablemos.">
+            @for (ch of word; track $index) {
+              <span class="wave__ch" [style.--i]="$index" aria-hidden="true">{{ ch }}</span>
+            }
+          </span>
+        </h2>
+        <p class="section-sub">
+          Habla con mi asistente: te guía paso a paso y tu mensaje me llega directo al correo.
+        </p>
+      </div>
 
-          <!-- Campo Asunto -->
-          <div class="input-container">
-            <input name="asunto" class="input" type="text" placeholder=" " required ngModel>
-            <label class="input-label" for="asunto">Asunto</label>
+      <!-- Estado en vivo -->
+      <div class="live" appReveal [revealDelay]="80">
+        <div class="live__item">
+          <span class="live__dot"></span>
+          <div>
+            <strong>Disponible</strong>
+            <small>para nuevos proyectos</small>
           </div>
+        </div>
+        <div class="live__sep"></div>
+        <div class="live__item">
+          <i class="fa-regular fa-clock"></i>
+          <div>
+            <strong>{{ madridTime || '—' }}</strong>
+            <small>hora en España</small>
+          </div>
+        </div>
+      </div>
 
-          <!-- Campo Mensaje -->
-          <div class="textarea-container">
-            <textarea name="mensaje" class="textarea" placeholder=" " required ngModel></textarea>
-            <label class="textarea-label" for="mensaje">Mensaje</label>
-          </div>
-
-          <!-- Checkbox Aceptación -->
-          <div class="form-group">
-            <input type="checkbox" id="acepto_politica" required ngModel name="acepto_politica">
-            <label for="acepto_politica">Acepto la política de privacidad</label>
-          </div>
-          <br>
-
-          <!-- Botón de Enviar Dinámico -->
-          <div class="btn__enviar">
-            <button class="btn btn-enviar" type="submit" [disabled]="isSending">
-              {{ isSending ? 'Enviando...' : 'Enviar mensaje' }}
-            </button>
-          </div>
-        </fieldset>
-      </form>
+      <ul class="channels">
+        <li appReveal [revealDelay]="120">
+          <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" class="channel">
+            <span class="channel__icon"><i class="fa-brands fa-linkedin-in"></i></span>
+            <span class="channel__text"><strong>LinkedIn</strong><small>Juan Francisco Bencomo</small></span>
+            <i class="fa-solid fa-arrow-right channel__arrow"></i>
+          </a>
+        </li>
+        <li appReveal [revealDelay]="180">
+          <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" class="channel">
+            <span class="channel__icon"><i class="fa-brands fa-github"></i></span>
+            <span class="channel__text"><strong>GitHub</strong><small>&#64;Juanfrancisco7</small></span>
+            <i class="fa-solid fa-arrow-right channel__arrow"></i>
+          </a>
+        </li>
+        <li appReveal [revealDelay]="240">
+          <a href="https://linktr.ee/juanfrancisco7" target="_blank" rel="noopener noreferrer" class="channel">
+            <span class="channel__icon"><i class="fa-solid fa-link"></i></span>
+            <span class="channel__text"><strong>Linktree</strong><small>Todos mis enlaces</small></span>
+            <i class="fa-solid fa-arrow-right channel__arrow"></i>
+          </a>
+        </li>
+      </ul>
     </div>
+
+    <!-- ================= Chat ================= -->
+    <div class="chat-wrap" appReveal [revealDelay]="150">
+      <div class="chat" #card [attr.data-status]="status" [class.is-shaking]="shake"
+           (pointermove)="onCardMove($event)" (pointerleave)="onCardLeave()">
+        <div class="chat__glare" aria-hidden="true"></div>
+
+        <!-- Cabecera -->
+        <header class="chat__head">
+          <span class="avatar">JF7<span class="avatar__online"></span></span>
+          <div class="chat__who">
+            <strong>Asistente de Juan</strong>
+            <small>
+              @if (botTyping) { <span class="typing-text">escribiendo…</span> }
+              @else if (status === 'sent') { mensaje entregado ✓ }
+              @else { en línea }
+            </small>
+          </div>
+          @if (hasUserReply && status !== 'sending') {
+            <button type="button" class="chat__reset" (click)="restart()" aria-label="Empezar de nuevo" title="Empezar de nuevo">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          }
+        </header>
+
+        <!-- Progreso por pasos -->
+        <div class="steps" aria-hidden="true">
+          @for (s of steps; track s.key; let i = $index) {
+            <span class="steps__dot" [class.is-done]="i < stepIndex || status !== 'chatting'" [class.is-current]="i === stepIndex && status === 'chatting'"></span>
+          }
+        </div>
+
+        <!-- Conversación -->
+        <div class="thread" #thread aria-live="polite">
+          @for (m of messages; track $index) {
+            <div class="msg" [class.msg--user]="m.from === 'user'" [class.msg--bot]="m.from === 'bot'" [class.msg--error]="m.error">
+              @if (m.from === 'user' && status !== 'sending' && status !== 'sent') {
+                <button type="button" class="bubble bubble--btn" (click)="edit(m)" title="Toca para corregir">
+                  {{ m.text }}
+                  <i class="fa-solid fa-pen bubble__edit" aria-hidden="true"></i>
+                </button>
+              } @else {
+                <div class="bubble">{{ m.text }}</div>
+              }
+            </div>
+          }
+
+          @if (botTyping) {
+            <div class="msg msg--bot">
+              <div class="bubble bubble--typing" aria-label="El asistente está escribiendo">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          }
+
+          <!-- Resumen antes de enviar -->
+          @if (status === 'review' || status === 'sending' || status === 'error') {
+            <div class="summary" [class.is-flying]="status === 'sending'">
+              <div class="summary__head">
+                <i class="fa-regular fa-envelope"></i> Tu mensaje para Juan
+              </div>
+              <dl>
+                <div><dt>De</dt><dd>{{ data.from_name }} · {{ data.email }}</dd></div>
+                <div><dt>Asunto</dt><dd>{{ data.asunto }}</dd></div>
+                <div><dt>Mensaje</dt><dd class="summary__msg">{{ data.mensaje }}</dd></div>
+              </dl>
+            </div>
+          }
+        </div>
+
+        <!-- Zona inferior: entrada / enviar / éxito -->
+        <footer class="chat__foot">
+          @switch (status) {
+            @case ('chatting') {
+              @if (step?.chips && !botTyping) {
+                <div class="chips">
+                  @for (c of step!.chips!; track c; let i = $index) {
+                    <button type="button" class="chip" [style.--i]="i" (click)="submit(c)">{{ c }}</button>
+                  }
+                </div>
+              }
+
+              @if (step && !step.chipsOnly) {
+                <form class="composer" (ngSubmit)="submit()" [class.is-disabled]="botTyping">
+                  @if (step.input === 'textarea') {
+                    <textarea #field name="value" rows="2" [(ngModel)]="value" [placeholder]="step.placeholder ?? ''"
+                              (keydown)="onKeydown($event)" [readonly]="botTyping" aria-label="Tu respuesta"></textarea>
+                  } @else {
+                    <input #field name="value" [type]="step.input === 'email' ? 'email' : 'text'" [(ngModel)]="value"
+                           [placeholder]="step.placeholder ?? ''" [readonly]="botTyping" autocomplete="off"
+                           [attr.inputmode]="step.input === 'email' ? 'email' : null" aria-label="Tu respuesta" />
+                  }
+                  <button type="submit" class="composer__send" [disabled]="botTyping || !value.trim()" aria-label="Responder">
+                    <i class="fa-solid fa-arrow-up"></i>
+                  </button>
+                </form>
+              }
+            }
+
+            @case ('review') {
+              <button type="button" class="launch" (click)="send()">
+                <span class="launch__label">Enviar mensaje</span>
+                <i class="fa-solid fa-paper-plane launch__plane"></i>
+              </button>
+              <p class="hint">¿Algo mal? Toca cualquiera de tus respuestas para corregirla.</p>
+            }
+
+            @case ('sending') {
+              <div class="launch is-launching" role="status">
+                <span class="launch__label">Enviando…</span>
+                <i class="fa-solid fa-paper-plane launch__plane"></i>
+                <span class="launch__trail"></span>
+              </div>
+            }
+
+            @case ('error') {
+              <p class="error-text"><i class="fa-solid fa-triangle-exclamation"></i> No se pudo enviar. Revisa tu conexión e inténtalo otra vez.</p>
+              <button type="button" class="launch" (click)="send()">
+                <span class="launch__label">Reintentar</span>
+                <i class="fa-solid fa-rotate-right launch__plane"></i>
+              </button>
+            }
+
+            @case ('sent') {
+              <div class="success" role="status">
+                <svg class="success__check" viewBox="0 0 52 52" aria-hidden="true">
+                  <circle cx="26" cy="26" r="24" />
+                  <path d="M15 27 l7 7 l15 -16" />
+                </svg>
+                <div>
+                  <strong>¡Mensaje enviado!</strong>
+                  <p>Gracias, {{ data.from_name }}. Juan te responderá en {{ data.email }}.</p>
+                </div>
+                <button type="button" class="btn btn-ghost btn-sm" (click)="restart()">Enviar otro</button>
+              </div>
+            }
+          }
+        </footer>
+
+        <!-- Confeti -->
+        @if (status === 'sent') {
+          <div class="confetti" aria-hidden="true">
+            @for (p of confetti; track $index) {
+              <span [style.background]="p.c" [style.--x]="p.x + 'px'" [style.--y]="p.y + 'px'" [style.--r]="p.r + 'deg'" [style.animation-delay.s]="p.d"></span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
   </div>
 </section>

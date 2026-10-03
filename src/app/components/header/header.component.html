@@ -1,56 +1,56 @@
-<!-- La clase 'header-hidden' se añade dinámicamente con TypeScript -->
-<header class="head" [class.header-hidden]="isHeaderHidden">
-  <div class="head__container">
+<header class="head" [class.head--hidden]="isHeaderHidden && !isMenuOpen" [class.head--scrolled]="isScrolled">
+  <div class="head__inner container">
 
-    <!-- Logo (Elemento Izquierdo) -->
-    <a href="https://linktr.ee/juanfrancisco7" class="logo-link">&#64;JUANFRANCISCO7</a>
+    <!-- Logo -->
+    <a href="#inicio" class="logo" (click)="closeMenu()" aria-label="Ir al inicio">
+      <span class="logo__mark">JF7</span>
+      <span class="logo__text">&#64;JuanFrancisco7</span>
+    </a>
 
-    <!-- Navegación principal (Elemento Central - solo para escritorio) -->
-    <nav class="head__nav--desktop">
-      <ul>
-        <li><a href="#sobre-mi" class="head__list">Sobre mí</a></li>
-        <li><a href="#skills" class="head__list">Skills</a></li>
-        <li><a href="#hobbies" class="head__list">Hobbies</a></li>
-        <li><a href="#certificaciones" class="head__list">Certificaciones</a></li>
-        <li><a href="#proyectos" class="head__list">Proyectos</a></li>
-        <li><a href="#galeria" class="head__list">Galería</a></li>
-        <li><a href="#contactame" class="head__list">Contáctame</a></li>
+    <!-- Navegación escritorio -->
+    <nav class="nav" aria-label="Navegación principal">
+      <ul class="nav__list">
+        @for (link of links; track link.id) {
+          <li>
+            <a [href]="'#' + link.id" class="nav__link" [class.is-active]="activeSection === link.id">{{ link.label }}</a>
+          </li>
+        }
       </ul>
     </nav>
 
-    
-    <!-- Contenedor para los elementos de la derecha -->
-    <div class="header__right">
-      <!-- Iconos Sociales siempre visibles -->
-      <div class="social-icons">
-        <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" class="social-icon">
-          <i class="fa-brands fa-github"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" class="social-icon">
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-      </div>
+    <!-- Derecha -->
+    <div class="head__right">
+      <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="#contactame" class="btn btn-primary btn-sm head__cta">Hablemos</a>
 
-
-      <!-- Botón Hamburguesa (solo para móvil) -->
-      <button class="toggle-button" (click)="toggleMenu()">
-        <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+      <!-- Botón hamburguesa (móvil) -->
+      <button class="burger" type="button" (click)="toggleMenu()" [class.is-open]="isMenuOpen"
+              [attr.aria-expanded]="isMenuOpen" aria-controls="mobile-menu" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-
-  
-  <!-- Menú desplegable para móvil -->
-  <nav class="head__nav--mobile" [class.active]="isMenuOpen">
-    <ul>
-      <li><a href="#sobre-mi" class="head__list" (click)="closeMenu()">Sobre mí</a></li>
-      <li><a href="#skills" class="head__list" (click)="closeMenu()">Skills</a></li>
-      <li><a href="#hobbies" class="head__list" (click)="closeMenu()">Hobbies</a></li>
-      <li><a href="#certificaciones" class="head__list" (click)="closeMenu()">Certificaciones</a></li>
-      <li><a href="#proyectos" class="head__list" (click)="closeMenu()">Proyectos</a></li>
-      <li><a href="#galeria" class="head__list" (click)="closeMenu()">Galería</a></li>
-      <li><a href="#contactame" class="head__list" (click)="closeMenu()">Contáctame</a></li>
-    </ul>
-  </nav>
 </header>
 
+<!-- Menú móvil a pantalla completa -->
+<nav id="mobile-menu" class="mnav" [class.is-open]="isMenuOpen" aria-label="Menú móvil">
+  <ul class="mnav__list">
+    @for (link of links; track link.id; let i = $index) {
+      <li [style.transition-delay]="isMenuOpen ? (80 + i * 50) + 'ms' : '0ms'">
+        <a [href]="'#' + link.id" class="mnav__link" [class.is-active]="activeSection === link.id" (click)="closeMenu()">
+          <span class="mnav__num">0{{ i + 1 }}</span>{{ link.label }}
+        </a>
+      </li>
+    }
+  </ul>
+  <div class="mnav__foot">
+    <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://linktr.ee/juanfrancisco7" target="_blank" rel="noopener noreferrer" aria-label="Linktree"><i class="fa-solid fa-link"></i></a>
+  </div>
+</nav>

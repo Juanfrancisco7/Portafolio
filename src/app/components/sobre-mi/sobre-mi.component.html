@@ -1,29 +1,54 @@
-<section class="sobre-mi" id="sobre-mi">
-  <div class="sobre-mi__fondo">
-    <div class="sobre-mi__propiedades">
-      <hr class="sobre-mi__linea">
-      <div class="sobre-mi__descripcion">
-        <h1 class="titulo-sobre-mi">Sobre <span>Mí</span></h1>
-        <br>
+<section class="section about" id="sobre-mi">
+  <div class="container about__grid">
 
-        <!-- PÁRRAFO 1: Añadimos #animText -->
-        <p class="sobre-mi__texto anim-left" #animText>
-          Programador por vocación, emprendedor por ambición y adicto a la adrenalina por naturaleza.
-        </p>
+    <div class="about__text">
+      <div class="section-head" appReveal>
+        <span class="eyebrow">Sobre mí</span>
+        <h2 class="section-title">Código con <span class="hl">adrenalina</span>.</h2>
+      </div>
 
-        <!-- PÁRRAFO 2: Añadimos #animText -->
-        <p class="sobre-mi__texto anim-right" #animText>
-          Construyo soluciones digitales complejas, como mi proyecto
-          <a href="https://www.mundojuan.com" target="_blank" rel="noopener noreferrer" class="mundojuan-link">www.mundojuan.com</a>, 
-          con la misma precisión y energía que le dedico al motocross y al snowboard.
-        </p>
+      <p class="about__lead" appReveal>
+        Programador por vocación, emprendedor por ambición y adicto a la adrenalina por naturaleza.
+      </p>
+      <p appReveal [revealDelay]="80">
+        Construyo soluciones digitales completas, como mi proyecto
+        <a href="https://www.mundojuan.com" target="_blank" rel="noopener noreferrer" class="link">mundojuan.com</a>,
+        con la misma precisión y energía que le dedico al motocross y al snowboard.
+      </p>
+      <p appReveal [revealDelay]="160">
+        Para mí, el código y el caos controlado no son opuestos: son las dos caras de la misma pasión.
+      </p>
 
-        <!-- PÁRRAFO 3: Añadimos #animText -->
-        <p class="sobre-mi__texto anim-left" #animText>
-          Para mí, el código y el caos controlado no son opuestos, son las dos caras de la misma pasión.
-        </p>
-
+      <div class="about__actions" appReveal [revealDelay]="200">
+        <a href="https://www.linkedin.com/in/juan-francisco-bencomo-chacin-9aa261225/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+        </a>
+        <a href="https://github.com/Juanfrancisco7" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
       </div>
     </div>
+
+    <!-- Tarjeta tipo editor de código -->
+    <div class="code card" appReveal [revealDelay]="120" aria-label="Resumen de perfil en formato código">
+      <div class="code__bar">
+        <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+        <span class="code__file">juan.ts</span>
+      </div>
+<pre class="code__body"><code><span class="k">const</span> <span class="v">juan</span> = &#123;
+  <span class="p">nombre</span>: <span class="s">'Juan Francisco Bencomo'</span>,
+  <span class="p">rol</span>: <span class="s">'Web Developer'</span>,
+  <span class="p">web</span>: [<span class="s">'Angular'</span>, <span class="s">'TypeScript'</span>, <span class="s">'Node.js'</span>],
+  <span class="p">mobile</span>: [<span class="s">'Kotlin'</span>, <span class="s">'Android'</span>],
+  <span class="p">datos</span>: [<span class="s">'SQL'</span>, <span class="s">'SQLite'</span>, <span class="s">'Redis'</span>],
+  <span class="p">ahoraMismo</span>: <span class="s">'J-Food · app Android con IA'</span>,
+  <span class="p">emprendimiento</span>: <span class="s">'mundojuan.com'</span>,
+  <span class="p">pasiones</span>: [<span class="s">'motocross'</span>, <span class="s">'snowboard'</span>, <span class="s">'paracaidismo'</span>],
+  <span class="p">adrenalina</span>: <span class="n">Infinity</span>,
+&#125;;
+
+<span class="c">// disponible para nuevos retos ✔</span></code></pre>
+    </div>
+
   </div>
 </section>

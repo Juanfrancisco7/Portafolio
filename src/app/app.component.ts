@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NotificationService } from './services/notification.service'; // <-- 1. IMPORTAMOS EL SERVICIO
 
@@ -13,11 +12,12 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { GaleriaComponent } from './components/galeria/galeria.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ScrollHudComponent } from './components/scroll-hud/scroll-hud.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ CommonModule, RouterOutlet, HeaderComponent, BannerComponent, SobreMiComponent, SkillsHobbiesComponent, CertificacionesComponent, ProyectosComponent, GaleriaComponent, ContactoComponent, FooterComponent ],
+  imports: [ RouterOutlet, HeaderComponent, BannerComponent, SobreMiComponent, SkillsHobbiesComponent, CertificacionesComponent, ProyectosComponent, GaleriaComponent, ContactoComponent, FooterComponent, ScrollHudComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -27,34 +27,28 @@ export class AppComponent implements OnInit {
   // 2. INYECTAMOS el servicio en el constructor
   constructor(private notificationService: NotificationService) {}
 
-  ngOnInit(): void {
-    // Lógica original para mostrar la notificación al cargar la página
-    if (sessionStorage.getItem('pageReloaded')) {
-      this.showWelcomeNotificationWithDelay(0); // Muestra inmediatamente
-      sessionStorage.removeItem('pageReloaded');
-    } else {
-      this.showWelcomeNotificationWithDelay(10000); // Espera 10 segundos
-      sessionStorage.setItem('pageReloaded', 'true');
-    }
+  /** Cuándo aparece el aviso tras abrir/recargar la página y cuánto dura (ms) */
+  private readonly WELCOME_DELAY = 15000;
+  private readonly WELCOME_DURATION = 10000;
+  private hideTimer?: ReturnType<typeof setTimeout>;
 
-    // 3. ¡NOS SUSCRIBIMOS PARA ESCUCHAR MENSAJES!
+  ngOnInit(): void {
+    // Cada vez que se abre o recarga la página: aparece a los 15 s y se quita a los 10 s
+    this.showWelcomeNotificationWithDelay(this.WELCOME_DELAY);
+
+    // Después de enviar un mensaje en Contacto, lo volvemos a mostrar
     this.notificationService.notification$.subscribe(event => {
       if (event === 'formSentSuccess') {
-        // Cuando oímos que el formulario se envió, esperamos un poco
-        // a que termine el scroll y volvemos a mostrar la notificación.
-        this.showWelcomeNotificationWithDelay(1500); // Espera 1.5 segundos
+        this.showWelcomeNotificationWithDelay(1500);
       }
     });
   }
 
-  // Hemos movido la lógica a una función reutilizable para no repetir código
   private showWelcomeNotificationWithDelay(delay: number): void {
     setTimeout(() => {
       this.showWelcomeNotification = true;
-      // La notificación se ocultará después de 8 segundos
-      setTimeout(() => {
-        this.showWelcomeNotification = false;
-      }, 8000);
+      if (this.hideTimer) clearTimeout(this.hideTimer);
+      this.hideTimer = setTimeout(() => (this.showWelcomeNotification = false), this.WELCOME_DURATION);
     }, delay);
   }
 }

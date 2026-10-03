@@ -1,51 +1,83 @@
-import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Needed for [ngClass]
+import { AfterViewInit, Component, HostListener, OnDestroy } from '@angular/core';
+
+interface NavLink {
+  id: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
-  // Property to control if the mobile menu is open or closed.
+export class HeaderComponent implements AfterViewInit, OnDestroy {
+  readonly links: NavLink[] = [
+    { id: 'sobre-mi', label: 'Sobre mí' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'proyectos', label: 'Proyectos' },
+    { id: 'certificaciones', label: 'Certificaciones' },
+    { id: 'galeria', label: 'Galería' },
+    { id: 'contactame', label: 'Contacto' },
+  ];
+
   isMenuOpen = false;
-
-  // Properties to control hiding the header on scroll.
   isHeaderHidden = false;
-  private lastScrollTop = 0;
-  private scrollThreshold = 10; // Prevents triggering on very small scrolls
+  isScrolled = false;
+  activeSection = '';
 
-  // Opens or closes the menu
+  private lastScrollTop = 0;
+  private observer?: IntersectionObserver;
+
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
+    document.body.classList.toggle('no-scroll', this.isMenuOpen);
   }
 
-  // Closes the menu (useful for mobile menu links)
   closeMenu(): void {
     this.isMenuOpen = false;
+    document.body.classList.remove('no-scroll');
   }
 
-  // Listens to the scroll event on the entire page
+  ngAfterViewInit(): void {
+    // "Scroll spy": resalta en el menú la sección que se está viendo
+    if (typeof IntersectionObserver === 'undefined') return;
+    this.observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) this.activeSection = entry.target.id;
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    // Esperamos un tick para que todas las secciones estén en el DOM
+    setTimeout(() => {
+      this.links.forEach(link => {
+        const section = document.getElementById(link.id);
+        if (section) this.observer?.observe(section);
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
+
   @HostListener('window:scroll')
   onWindowScroll(): void {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    this.isScrolled = scrollTop > 20;
+    if (scrollTop < 120) this.activeSection = '';
 
-    // If the scroll is very small, do nothing
-    if (Math.abs(scrollTop - this.lastScrollTop) <= this.scrollThreshold) {
-      return;
-    }
+    if (Math.abs(scrollTop - this.lastScrollTop) <= 8) return;
+    // Oculta el header al bajar, lo muestra al subir
+    this.isHeaderHidden = scrollTop > this.lastScrollTop && scrollTop > 200;
+    this.lastScrollTop = Math.max(scrollTop, 0);
+  }
 
-    // Hide if scrolling down and far from the top
-    if (scrollTop > this.lastScrollTop && scrollTop > 80) { // 80 is the header height
-      this.isHeaderHidden = true;
-    } else {
-      // Show if scrolling up
-      this.isHeaderHidden = false;
-    }
-    
-    this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  @HostListener('window:resize')
+  onResize(): void {
+    if (window.innerWidth >= 992 && this.isMenuOpen) this.closeMenu();
   }
 }
-

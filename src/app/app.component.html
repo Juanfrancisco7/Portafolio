@@ -1,22 +1,31 @@
-<!-- Aquí llamamos a nuestro componente de cabecera -->
 <app-header></app-header>
-<app-banner></app-banner>
-<app-sobre-mi></app-sobre-mi>
-<app-skills-hobbies></app-skills-hobbies>
-<app-certificaciones></app-certificaciones>
-<app-proyectos></app-proyectos>
-<app-galeria></app-galeria>
-<app-contacto></app-contacto>
-<app-footer></app-footer>
-<!-- Notificación de Bienvenida -->
-@if (showWelcomeNotification) {
-  <div class="welcome-notification">
-    <p>¿Ya visitaste <a href="https://www.mundojuan.com" target="_blank">MUNDOJUAN</a>? 
-       Cuéntame tu experiencia <a href="https://www.mundojuan.com" target="_blank">aquí</a></p>
-  </div>
-}
-<!-- Esto es un marcador de posición. Angular cargará aquí los componentes de cada página (ej. Inicio, Contacto) -->
-<router-outlet></router-outlet>
+<app-scroll-hud></app-scroll-hud>
 
-<!-- Cuando crees tu componente de footer, lo añadirás aquí abajo -->
-<!-- <app-footer></app-footer> -->
+<main>
+  <app-banner></app-banner>
+  <app-sobre-mi></app-sobre-mi>
+  <app-skills-hobbies></app-skills-hobbies>
+  <app-proyectos></app-proyectos>
+  <app-certificaciones></app-certificaciones>
+  <app-galeria></app-galeria>
+  <app-contacto></app-contacto>
+</main>
+
+<app-footer></app-footer>
+
+<!-- Notificación de bienvenida (MundoJuan + J-Food) -->
+@if (showWelcomeNotification) {
+  <aside class="welcome" role="status">
+    <span class="welcome__icon"><i class="fa-solid fa-utensils"></i></span>
+    <p>
+      ¿Ya visitaste <a href="https://www.mundojuan.com" target="_blank" rel="noopener noreferrer">MUNDOJUAN</a>?
+      También tienes que probar <strong>J-FOOD</strong>, mi app de nutrición con IA.
+      <a href="#contactame" (click)="showWelcomeNotification = false">Contacta conmigo</a> y te guío paso a paso para instalarla.
+    </p>
+    <button type="button" class="welcome__close" (click)="showWelcomeNotification = false" aria-label="Cerrar aviso">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </aside>
+}
+
+<router-outlet></router-outlet>
